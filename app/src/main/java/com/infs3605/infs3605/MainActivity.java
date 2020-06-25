@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 //hello im commenting in the main activity
+//hello new comment
 public class MainActivity extends AppCompatActivity {
 
     @Override
