@@ -4,12 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-//hello im commenting in the main activity
-public class MainActivity extends AppCompatActivity {
+//when an industry is clicked on the main activity, it opens up this activity
+public class IndustryActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_industry);
     }
 }
