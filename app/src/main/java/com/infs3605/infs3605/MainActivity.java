@@ -4,8 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-//this is the home page, the first activity that loads when users open the app
-
+//hello im commenting in the main activity
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -14,4 +13,3 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 }
-
