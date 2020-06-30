@@ -4,22 +4,27 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapter.ViewHolder> {
+public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapter.ViewHolder> implements Filterable {
 
 
     public List<IndustryClass> mDataset;
+    public List<IndustryClass> mDatasetFull;
 
 
     public MainActivityAdapter(List<IndustryClass> myDataset){
         mDataset = myDataset;
+        mDatasetFull = new ArrayList<>(mDataset);
     }
 
     @NonNull
@@ -55,12 +60,41 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
 
 
     }
+    // Filter search methods
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
 
-//    public  MainActivityAdapter(@NonNull View itemView) {
-//        super(itemView);
-//        view = itemView;
-//        industryName = view.findViewById(R.id.industryName);
-//    }
+    private Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<IndustryClass> filteredList = new ArrayList<>();
 
+            if(constraint == null || constraint.length() == 0){
+                filteredList.addAll(mDatasetFull);
+            } else{
+                String filterPattern= constraint.toString().toLowerCase().trim();
+
+                for(IndustryClass item : mDatasetFull){
+                    if (item.getIndustryName().toLowerCase().contains(filterPattern)){
+                        filteredList.add(item);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults results) {
+
+            mDataset.clear();
+            mDataset.addAll((List) results.values);
+            notifyDataSetChanged();
+
+        }
+    };
 }
-

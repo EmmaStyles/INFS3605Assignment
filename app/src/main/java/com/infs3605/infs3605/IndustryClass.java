@@ -7,7 +7,7 @@ public class IndustryClass {
         this.industryName = industryName;
     }
 
-        public String getIndustryName() {
+    public String getIndustryName() {
         return industryName;
     }
 
