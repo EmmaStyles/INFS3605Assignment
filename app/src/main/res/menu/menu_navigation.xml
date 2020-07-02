@@ -8,13 +8,13 @@
 
     <item
         android:id="@+id/industries"
-        android:title="Industry"
+        android:title="Industries"
         android:icon="@drawable/ic_business"
         ></item>
 
     <item
         android:id="@+id/liveUpdates"
-        android:title="Live Updates"
+        android:title="Updates"
         android:icon="@drawable/ic_notifications"></item>
 
     <item

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
 
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -19,24 +19,72 @@
         android:layout_height="match_parent"
         android:scrollbars="vertical"
         android:id="@+id/maRecycleView"/>
-    <!--    <TextView-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:text="Home"-->
-    <!--        android:textSize="50sp"-->
-    <!--        android:textStyle="bold"-->
-    <!--        android:layout_centerInParent="true"/>-->
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        app:itemBackground="@color/colorPrimary"
-        app:itemIconTint="@drawable/selector"
-        app:itemTextColor="@drawable/selector"
-        app:menu="@menu/menu_navigation">
+    <TextView
+            android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Home"
+           android:textSize="50sp"
+            android:textStyle="bold"
+           android:layout_centerInParent="true"/>
 
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+<!--    <com.google.android.material.appbar.AppBarLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="bottom">-->
 
-</LinearLayout>
+<!--        <androidx.appcompat.widget.Toolbar-->
+<!--            android:id="@+id/bottomNavigationPane"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:weightSum="100"-->
+<!--                android:orientation="horizontal">-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="25"-->
+<!--                    android:text="Home"-->
+<!--                    android:gravity="center"-->
+<!--                    android:drawableTop="@drawable/ic_home"></TextView>-->
+
+<!--                <ImageView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="25"-->
+<!--                    android:src="@drawable/ic_business"></ImageView>-->
+
+<!--                <ImageView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="25"-->
+<!--                    android:src="@drawable/ic_notifications"></ImageView>-->
+
+<!--                <ImageView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="25"-->
+<!--                    android:src="@drawable/ic_monetization"></ImageView>-->
+
+<!--            </LinearLayout>-->
+
+<!--        </androidx.appcompat.widget.Toolbar>-->
+
+<!--    </com.google.android.material.appbar.AppBarLayout>-->
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/bottomNavigationPane"
+            android:layout_gravity="bottom"
+            app:menu="@menu/menu_navigation"
+            app:itemHorizontalTranslationEnabled="false"
+            />
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
