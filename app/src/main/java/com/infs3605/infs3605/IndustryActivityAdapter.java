@@ -11,10 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class IndustryActivityAdapter extends RecyclerView.Adapter<IndustryActivityAdapter.ViewHolder> {
+    private ArticleClickInterface articleClickInterface;
     private ArrayList<Article> mArticleList;
 
-    public IndustryActivityAdapter(ArrayList<Article> articleList){
+    public IndustryActivityAdapter(ArrayList<Article> articleList, ArticleClickInterface articleClickInterface){
         mArticleList = articleList;
+        this.articleClickInterface = articleClickInterface;
     }
 
     @NonNull
@@ -49,6 +51,13 @@ public class IndustryActivityAdapter extends RecyclerView.Adapter<IndustryActivi
 
             titleText = itemView.findViewById(R.id.article_title);
             dateText = itemView.findViewById(R.id.article_date);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    articleClickInterface.onArticleClick(getAdapterPosition());
+                }
+            });
 
         }
     }

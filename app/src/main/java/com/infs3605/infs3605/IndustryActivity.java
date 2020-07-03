@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 
 //when an industry is clicked on the main activity, it opens up this activity
-public class IndustryActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class IndustryActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, ArticleClickInterface {
     private Spinner spinner;
     private RecyclerView recyclerView;
     private IndustryActivityAdapter mIndustryActAdapter;
@@ -73,9 +73,9 @@ IndustryClass industryClass;
 
         return data;
     }
-
+    ArrayList<Article> articlesToDisplay = new ArrayList<Article>();
     private void getSelectedSegment(String segment){
-        ArrayList<Article> articlesToDisplay = new ArrayList<Article>();
+//        ArrayList<Article> articlesToDisplay = new ArrayList<Article>();
         getArticles();
         String industryChosen = industryClass.getIndustryName();
         if(segment.equalsIgnoreCase("All")){
@@ -88,7 +88,7 @@ IndustryClass industryClass;
                 }
 
             }
-            mIndustryActAdapter = new IndustryActivityAdapter(articlesToDisplay);
+            mIndustryActAdapter = new IndustryActivityAdapter(articlesToDisplay, this);
 
 
         } else{
@@ -98,7 +98,7 @@ IndustryClass industryClass;
                     articlesToDisplay.add(article);
                 }
             }
-            mIndustryActAdapter = new IndustryActivityAdapter(articlesToDisplay);
+            mIndustryActAdapter = new IndustryActivityAdapter(articlesToDisplay, this);
         }
         recyclerView.setAdapter(mIndustryActAdapter);
 
@@ -116,6 +116,18 @@ String segmentChosen;
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
+    @Override
+    public void onArticleClick(int position) {
+        Intent intent = new Intent(this,ArticleDetail.class);
+        intent.putExtra("Article Object", articlesToDisplay.get(position));
+
+        startActivity(intent);
+
+        //the only thing missing for this intent to work, is passing the Article object, referring to main Activity
+        // we should do putExtra(" ", articlesToDisplay.get(position)) but since our articleToDisplay is not a class variable we cannot do it here
 
     }
 }
