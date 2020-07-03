@@ -6,4 +6,41 @@
     android:layout_height="match_parent"
     tools:context=".IndustryActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity"
+        android:orientation="horizontal"
+        android:id="@+id/linear_layout">
+
+        <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/industrySegment_spinner"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp" />
+
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/filter_button"
+                android:text="Filter"
+                app:layout_constraintStart_toEndOf="@id/industrySegment_spinner"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:id="@+id/rv_industry_activity"
+        android:layout_marginTop="100dp" />
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

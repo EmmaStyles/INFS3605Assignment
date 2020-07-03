@@ -20,11 +20,13 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
 
     public List<IndustryClass> mDataset;
     public List<IndustryClass> mDatasetFull;
+    private IndustryClickInterface industryClickInterface;
 
 
-    public MainActivityAdapter(List<IndustryClass> myDataset){
+    public MainActivityAdapter(List<IndustryClass> myDataset, IndustryClickInterface industryClickInterface ){
         mDataset = myDataset;
         mDatasetFull = new ArrayList<>(mDataset);
+        this.industryClickInterface =industryClickInterface ;
     }
 
     @NonNull
@@ -49,13 +51,23 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
         return mDataset.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView industryNameTextView;
+
 
         public ViewHolder(View v){
             super(v);
             industryNameTextView = v.findViewById(R.id.industryName);
+
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    industryClickInterface.onIndustryClick(getAdapterPosition());
+                }
+            });
+
+
         }
 
 
@@ -97,4 +109,11 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
 
         }
     };
+
+//    public interface onIndustryListener{
+//
+//        void onIndustryClick(int position);
+//    }
+
+
 }
