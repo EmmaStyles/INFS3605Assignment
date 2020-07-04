@@ -1,13 +1,19 @@
 package com.infs3605.infs3605;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
@@ -23,6 +29,40 @@ public class GeneralInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_general_info);
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationPane);
+
+        //checks/selects the bottom icons as they are clicked
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(0);
+        menuItem.setChecked(true);
+
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                    case R.id.home:
+                        break;
+                    case R.id.industries:
+                        Intent intent1 = new Intent(GeneralInfoActivity.this, MainActivity.class);
+                        startActivity(intent1);
+                        overridePendingTransition(0,0);
+                        break;
+                    case R.id.liveUpdates:
+                        Intent intent2 = new Intent(GeneralInfoActivity.this, LiveUpdatesActivity.class);
+                        startActivity(intent2);
+                        overridePendingTransition(0,0);
+                        break;
+                    case R.id.schemes:
+                        Intent intent3 = new Intent(GeneralInfoActivity.this, SchemesActivity.class);
+                        startActivity(intent3);
+                        overridePendingTransition(0,0);
+                        break;
+                }
+                return false;
+            }
+        });
 
         generalInfoSpinner = findViewById(R.id.generalInfo_spinner);
         generalInfoRecyclerView = (RecyclerView) findViewById(R.id.rv_general_info);

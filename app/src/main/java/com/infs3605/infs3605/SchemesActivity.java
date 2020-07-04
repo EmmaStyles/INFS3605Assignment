@@ -32,12 +32,12 @@ public class SchemesActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()){
                     case R.id.home:
-                        Intent intent1 = new Intent(SchemesActivity.this, MainActivity.class);
+                        Intent intent1 = new Intent(SchemesActivity.this, GeneralInfoActivity.class);
                         startActivity(intent1);
                         overridePendingTransition(0,0);
                         break;
                     case R.id.industries:
-                        Intent intent2 = new Intent(SchemesActivity.this, IndustryActivity.class);
+                        Intent intent2 = new Intent(SchemesActivity.this, MainActivity.class);
                         startActivity(intent2);
                         overridePendingTransition(0,0);
                         break;

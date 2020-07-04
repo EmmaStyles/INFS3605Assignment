@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements IndustryClickInte
 
         //checks/selects the bottom icons as they are clicked
         Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(0);
+        MenuItem menuItem = menu.getItem(1);
         menuItem.setChecked(true);
 
 
@@ -43,11 +43,11 @@ public class MainActivity extends AppCompatActivity implements IndustryClickInte
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()){
                     case R.id.home:
-                        break;
-                    case R.id.industries:
-                        Intent intent1 = new Intent(MainActivity.this, IndustryActivity.class);
+                        Intent intent1 = new Intent(MainActivity.this, GeneralInfoActivity.class);
                         startActivity(intent1);
                         overridePendingTransition(0,0);
+                        break;
+                    case R.id.industries:
                         break;
                     case R.id.liveUpdates:
                         Intent intent2 = new Intent(MainActivity.this, LiveUpdatesActivity.class);
