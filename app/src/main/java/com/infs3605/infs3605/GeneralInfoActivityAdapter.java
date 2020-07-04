@@ -14,8 +14,9 @@ public class GeneralInfoActivityAdapter extends RecyclerView.Adapter<GeneralInfo
     private ArticleClickInterface articleClickInterface;
     private ArrayList<GeneralInfoArticle> mGeneralInfoArticleList;
 
-    public GeneralInfoActivityAdapter(ArrayList<GeneralInfoArticle> generalInfoArticleList){
+    public GeneralInfoActivityAdapter(ArrayList<GeneralInfoArticle> generalInfoArticleList, ArticleClickInterface articleClickInterface){
         mGeneralInfoArticleList = generalInfoArticleList;
+        this.articleClickInterface =articleClickInterface;
     }
 
     @NonNull
@@ -36,7 +37,7 @@ public class GeneralInfoActivityAdapter extends RecyclerView.Adapter<GeneralInfo
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mGeneralInfoArticleList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -49,6 +50,12 @@ public class GeneralInfoActivityAdapter extends RecyclerView.Adapter<GeneralInfo
             generalInfoTitle = itemView.findViewById(R.id.generalInfo_title);
             generalInfoDate = itemView.findViewById(R.id.generalInfo_date);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    articleClickInterface.onArticleClick(getAdapterPosition());
+                }
+            });
 
         }
     }

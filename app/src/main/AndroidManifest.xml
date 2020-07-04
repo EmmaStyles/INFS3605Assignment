@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".GeneralInfoDetailActivity"></activity>
         <activity android:name=".GeneralInfoActivity" />
         <activity android:name=".ArticleDetail" />
         <activity android:name=".LiveUpdatesActivity" />

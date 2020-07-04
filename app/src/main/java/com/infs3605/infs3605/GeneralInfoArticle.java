@@ -1,6 +1,9 @@
 package com.infs3605.infs3605;
 
-public class GeneralInfoArticle {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class GeneralInfoArticle implements Parcelable {
     String articleType;
     String generalInfoTitle;
     String generalInfoDate;
@@ -12,6 +15,25 @@ public class GeneralInfoArticle {
         this.generalInfoContent = generalInfoContent;
         this.articleType = articleType;
     }
+
+    protected GeneralInfoArticle(Parcel in) {
+        articleType = in.readString();
+        generalInfoTitle = in.readString();
+        generalInfoDate = in.readString();
+        generalInfoContent = in.readString();
+    }
+
+    public static final Creator<GeneralInfoArticle> CREATOR = new Creator<GeneralInfoArticle>() {
+        @Override
+        public GeneralInfoArticle createFromParcel(Parcel in) {
+            return new GeneralInfoArticle(in);
+        }
+
+        @Override
+        public GeneralInfoArticle[] newArray(int size) {
+            return new GeneralInfoArticle[size];
+        }
+    };
 
     public String getArticleType() {
         return articleType;
@@ -43,5 +65,18 @@ public class GeneralInfoArticle {
 
     public void setGeneralInfoContent(String generalInfoContent) {
         this.generalInfoContent = generalInfoContent;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(articleType);
+        parcel.writeString(generalInfoTitle);
+        parcel.writeString(generalInfoDate);
+        parcel.writeString(generalInfoContent);
     }
 }
