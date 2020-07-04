@@ -1,5 +1,6 @@
 package com.infs3605.infs3605;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,6 +12,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
 import android.widget.SearchView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
@@ -26,6 +29,41 @@ public class MainActivity extends AppCompatActivity implements IndustryClickInte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationPane);
+
+        //checks/selects the bottom icons as they are clicked
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(0);
+        menuItem.setChecked(true);
+
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                    case R.id.home:
+                        break;
+                    case R.id.industries:
+                        Intent intent1 = new Intent(MainActivity.this, IndustryActivity.class);
+                        startActivity(intent1);
+                        overridePendingTransition(0,0);
+                        break;
+                    case R.id.liveUpdates:
+                        Intent intent2 = new Intent(MainActivity.this, LiveUpdatesActivity.class);
+                        startActivity(intent2);
+                        overridePendingTransition(0,0);
+                        break;
+                    case R.id.schemes:
+                        Intent intent3 = new Intent(MainActivity.this, SchemesActivity.class);
+                        startActivity(intent3);
+                        overridePendingTransition(0,0);
+                        break;
+                }
+                return false;
+            }
+        });
+
         recyclerView = (RecyclerView) findViewById(R.id.maRecycleView);
         recyclerView.setHasFixedSize(true);
 
