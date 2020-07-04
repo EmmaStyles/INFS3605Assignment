@@ -1,32 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<RelativeLayout
 
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:orientation="vertical">
+    tools:context=".MainActivity">
 
-    <ImageView
+    <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="Home"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        android:id="@+id/text_home"/>
+
+<!--    <ImageView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"/>-->
 <!--        android:src="@drawable/logo"/>-->
+
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"
-        android:id="@+id/maRecycleView"/>
+        android:id="@+id/maRecycleView"
+        android:layout_below="@+id/text_home"/>
 
-    <TextView
-            android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="Home"
-           android:textSize="50sp"
-            android:textStyle="bold"
-           android:layout_centerInParent="true"/>
+
 
 <!--    <com.google.android.material.appbar.AppBarLayout-->
 <!--        android:layout_width="match_parent"-->
@@ -83,8 +87,10 @@
             android:layout_gravity="bottom"
             app:menu="@menu/menu_navigation"
             app:itemHorizontalTranslationEnabled="false"
-            />
+            android:layout_alignParentBottom="true"
+            android:background="?android:attr/windowBackground"/>
+
+</RelativeLayout>
 
 
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>

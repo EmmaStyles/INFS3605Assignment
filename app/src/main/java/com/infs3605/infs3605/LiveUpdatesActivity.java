@@ -24,31 +24,7 @@ public class LiveUpdatesActivity extends AppCompatActivity {
         MenuItem menuItem = menu.getItem(2);
         menuItem.setChecked(true);
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()){
-                    case R.id.home:
-                        Intent intent1 = new Intent(LiveUpdatesActivity.this, MainActivity.class);
-                        startActivity(intent1);
-                        overridePendingTransition(0,0);
-                        break;
-                    case R.id.industries:
-                        Intent intent2 = new Intent(LiveUpdatesActivity.this, IndustryActivity.class);
-                        startActivity(intent2);
-                        overridePendingTransition(0,0);
-                        break;
-                    case R.id.liveUpdates:
-                        break;
-                    case R.id.schemes:
-                        Intent intent3 = new Intent(LiveUpdatesActivity.this, SchemesActivity.class);
-                        startActivity(intent3);
-                        overridePendingTransition(0,0);
-                        break;
-                }
-                return false;
-            }
-        });
+
 
     }
 }

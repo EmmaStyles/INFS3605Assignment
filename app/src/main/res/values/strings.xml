@@ -10,4 +10,11 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
+    <string-array name="generalInfo_array">
+        <item>All</item>
+        <item>Tax Support</item>
+        <item>COVID-19 scams</item>
+        <item>Pausing/Closing a business</item>
+        <item>Safe Business Operations</item>
+    </string-array>
 </resources>
