@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -15,6 +16,7 @@ public class GeneralInfoActivity extends AppCompatActivity {
     private RecyclerView generalInfoRecyclerView;
     private GeneralInfoActivityAdapter mGeneralInfoActivityAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    TextView blah;
 
 
     @Override
