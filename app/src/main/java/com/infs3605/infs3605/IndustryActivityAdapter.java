@@ -8,6 +8,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class IndustryActivityAdapter extends RecyclerView.Adapter<IndustryActivityAdapter.ViewHolder> {
@@ -47,6 +49,7 @@ public class IndustryActivityAdapter extends RecyclerView.Adapter<IndustryActivi
 
 
         public ViewHolder(@NonNull View itemView) {
+
             super(itemView);
 
             titleText = itemView.findViewById(R.id.article_title);

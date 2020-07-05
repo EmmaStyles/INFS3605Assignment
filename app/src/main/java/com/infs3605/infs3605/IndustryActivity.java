@@ -115,10 +115,10 @@ IndustryClass industryClass;
     }
     ArrayList<Article> articlesToDisplay = new ArrayList<Article>();
     private void getSelectedSegment(String segment){
-//        ArrayList<Article> articlesToDisplay = new ArrayList<Article>();
+
         getArticles();
         String industryChosen = industryClass.getIndustryName();
-        if(segment.equalsIgnoreCase("All")){
+        if(segment.equalsIgnoreCase("All")) {
 
             for(int i = 0; i< data.size(); i++){
                 if(data.get(i).getIndustry().equalsIgnoreCase(industryChosen)){
