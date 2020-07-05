@@ -53,9 +53,9 @@ public class SchemesActivity extends AppCompatActivity {
             }
         });
 
-//        WebView webview = new WebView(this);
-//        setContentView(webview);
-//        webview.loadUrl("https://www.business.gov.au/Grants-and-Programs");
+        WebView webview = new WebView(this);
+        setContentView(webview);
+        webview.loadUrl("https://www.business.gov.au/Grants-and-Programs");
 
     }
 }
