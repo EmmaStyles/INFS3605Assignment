@@ -79,4 +79,6 @@ public class GeneralInfoArticle implements Parcelable {
         parcel.writeString(generalInfoDate);
         parcel.writeString(generalInfoContent);
     }
+
+
 }

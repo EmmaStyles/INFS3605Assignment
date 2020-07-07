@@ -35,15 +35,6 @@
             android:layout_marginLeft="20dp"/>
 <!--            android:entries="strings/generalInfo_array"/>-->
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/filter_button"
-            android:text="Filter"
-            app:layout_constraintStart_toEndOf="@id/generalInfo_spinner"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp" />
 
     </LinearLayout>
 
