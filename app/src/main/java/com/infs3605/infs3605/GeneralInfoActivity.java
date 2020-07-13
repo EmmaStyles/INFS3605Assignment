@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +19,11 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,6 +36,7 @@ public class GeneralInfoActivity extends AppCompatActivity implements ArticleCli
     private RecyclerView.LayoutManager layoutManager;
     ArrayList<GeneralInfoArticle> generalInfoData = new ArrayList<GeneralInfoArticle>();
     ArrayList<GeneralInfoArticle> orderedData = new ArrayList<GeneralInfoArticle>();
+
 
 
     @Override
@@ -171,6 +178,48 @@ public class GeneralInfoActivity extends AppCompatActivity implements ArticleCli
         this.orderedData = data;
         Collections.reverse(data);
         return data;
+    }
+
+    //
+
+    //reads the general_info CSV file from the /raw folder.
+    private void readData() {
+        //access the resources directory
+        InputStream inputStream = getResources().openRawResource(R.raw.general_info);
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(inputStream, Charset.forName("UTF-8"))
+        );
+
+        String line = "";
+        //if the line is not null keep looping
+        try {
+            //skip the header
+            reader.readLine();
+
+            while( (line = reader.readLine()) != null){
+                //split by ','s
+                String[] tokens = line.split(",");
+
+                //read the data
+                String type = tokens[0];
+                String title = tokens[1];
+                String date = tokens[2];
+                String contentUnformatted = tokens[3];
+                String contentFormatted = contentUnformatted.replace("-",", ");
+
+                GeneralInfoArticle generalInfoArticle = new GeneralInfoArticle(type, title, date, contentFormatted);
+                //which arraylist do you want to add it to?
+
+                //generalInfoArticles.add(generalInfoArticle);
+
+                //debug statement
+                //Log.d("MainActivity", "Just created " + generalInfoArticle.toString());
+            }
+        }catch(IOException e){
+            Log.wtf("MainActivity", "Error reading data file " + line, e);
+            e.printStackTrace();
+        }
+
     }
 
 }

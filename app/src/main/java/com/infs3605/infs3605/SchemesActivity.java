@@ -26,7 +26,6 @@ public class SchemesActivity extends AppCompatActivity {
         MenuItem menuItem = menu.getItem(3);
         menuItem.setChecked(true);
 
-
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
