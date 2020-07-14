@@ -31,8 +31,10 @@
         android:scrollbars="vertical"
         android:id="@+id/maRecycleView"
         android:layout_below="@+id/text_home"
-        android:layout_marginTop="50dp"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:layout_marginTop="70dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationPane"
+        app:layout_constraintTop_toBottomOf="@+id/text_home"/>
 
 
 
@@ -93,7 +95,8 @@
             app:itemHorizontalTranslationEnabled="false"
             android:layout_alignParentBottom="true"
             android:background="?android:attr/windowBackground"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/maRecycleView"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

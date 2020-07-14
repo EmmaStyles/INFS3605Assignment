@@ -8,10 +8,12 @@ import java.util.ArrayList;
 public class IndustryClass implements Parcelable {
     public String industryName;
     public ArrayList<String> industrySegments;
+    public String imageUrl;
 
     protected IndustryClass(Parcel in) {
         industryName = in.readString();
         industrySegments = in.createStringArrayList();
+        imageUrl = in.readString();
     }
 
     public static final Creator<IndustryClass> CREATOR = new Creator<IndustryClass>() {
@@ -30,13 +32,22 @@ public class IndustryClass implements Parcelable {
         return industrySegments;
     }
 
-    public IndustryClass(String industryName, ArrayList<String> industrySegments){
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public IndustryClass(String industryName, ArrayList<String> industrySegments, String imageUrl){
         this.industryName = industryName;
         this.industrySegments = industrySegments;
+        this.imageUrl = imageUrl;
     }
 
     public void setIndustrySegments(ArrayList<String> industrySegments) {
         this.industrySegments = industrySegments;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getIndustryName() {
@@ -57,6 +68,7 @@ public class IndustryClass implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(industryName);
         parcel.writeStringList(industrySegments);
+        parcel.writeString(imageUrl);
     }
 
 }

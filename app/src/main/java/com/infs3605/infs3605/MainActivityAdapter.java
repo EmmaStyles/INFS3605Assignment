@@ -6,11 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +24,14 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
     public List<IndustryClass> mDataset;
     public List<IndustryClass> mDatasetFull;
     private IndustryClickInterface industryClickInterface;
+    private Context context;
 
 
-    public MainActivityAdapter(List<IndustryClass> myDataset, IndustryClickInterface industryClickInterface ){
+    public MainActivityAdapter(List<IndustryClass> myDataset, IndustryClickInterface industryClickInterface, Context context ){
         mDataset = myDataset;
         mDatasetFull = new ArrayList<>(mDataset);
         this.industryClickInterface =industryClickInterface ;
+        this.context= context;
     }
 
     @NonNull
@@ -44,6 +49,9 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
         TextView textView = holder.industryNameTextView;
         textView.setText(industryClass.getIndustryName());
 
+        Picasso.with(context).load(industryClass.getImageUrl()).into(holder.industryImage);
+
+
     }
 
     @Override
@@ -54,11 +62,13 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView industryNameTextView;
+        public ImageView industryImage;
 
 
         public ViewHolder(View v){
             super(v);
             industryNameTextView = v.findViewById(R.id.industryName);
+            industryImage = v.findViewById(R.id.imageView);
 
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
