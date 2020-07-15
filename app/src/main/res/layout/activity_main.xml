@@ -24,17 +24,17 @@
 <!--        android:src="@drawable/logo"/>-->
 
 
-
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical"
         android:id="@+id/maRecycleView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_below="@+id/text_home"
-        android:layout_marginTop="70dp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationPane"
-        app:layout_constraintTop_toBottomOf="@+id/text_home" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_home"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 
@@ -86,16 +86,17 @@
 
 <!--    </com.google.android.material.appbar.AppBarLayout>-->
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/bottomNavigationPane"
-            android:layout_gravity="bottom"
-            app:menu="@menu/menu_navigation"
-            app:itemHorizontalTranslationEnabled="false"
-            android:layout_alignParentBottom="true"
-            android:background="?android:attr/windowBackground"
-            app:layout_constraintBottom_toBottomOf="parent" />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationPane"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="?android:attr/windowBackground"
+        app:itemBackground="@color/colorAccentLight"
+        app:itemHorizontalTranslationEnabled="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/menu_navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

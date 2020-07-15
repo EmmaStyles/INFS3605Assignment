@@ -19,14 +19,14 @@
             android:layout_gravity="center">
 
             <ImageView
+                android:id="@+id/article_image"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:id="@+id/article_image"
-                android:paddingTop="20dp"
                 android:paddingLeft="20dp"
+                android:paddingTop="20dp"
+                android:src="@drawable/health_industry"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/health_industry"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:layout_width="wrap_content"
