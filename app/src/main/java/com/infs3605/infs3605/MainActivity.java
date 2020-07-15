@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements IndustryClickInte
         myDataset.add(new IndustryClass("Health", healthSegments,"https://www.stuartmagazine.com/sites/default/files/features/intro_2.jpg"));
         myDataset.add(new IndustryClass("Sport", sportSegments, "https://static.ffx.io/images/$zoom_0.133%2C$multiply_0.5896%2C$ratio_1.7777777777777777%2C$width_636%2C$x_0%2C$y_66/t_crop_custom/q_86%2Cf_auto/90a6d8b006a5f4389352a5fc78639c6c0b3d82d7"));
         myDataset.add(new IndustryClass("Retail", retailSegments,"https://lh3.googleusercontent.com/proxy/DGW-dSgiUhpJbWYZ5RHQr3BWiQ6oz5zwoGjj2jGlytrJpD25J2PkCVLEjhON0S3hAyrHCRRFL3EpK1JBDgmC7ur1oSp9fxMYfiL7E1cd_wa-xS8Dg5maNztmoR8J15SYwEInQ1taOd49oMcPFqk1IC2JeHjx_4vRGbtKEmzCof3qOpYZDiVBJUDJvR5RcoGlJpfaM_5knyVebHlxbMabFOxpRQ-Hb8qJhDgIz_c"));
-
+        myDataset.add(new IndustryClass("Hospitality",hospitalitySegments,"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTLs511TuuSi2svt4heZsMPLhgb6o1H0rE9xQ&usqp=CAU"));
 
 
 
