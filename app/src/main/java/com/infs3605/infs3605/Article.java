@@ -9,13 +9,15 @@ public class Article implements Parcelable {
     String title;
     String date;
     String content;
+    String articleImageUrl;
 
-    public Article(String industry, String segment, String title, String date, String content){
+    public Article(String industry, String segment, String title, String date, String content, String articleImageUrl){
         this.industry = industry;
         this.segment = segment;
         this.title = title;
         this.date = date;
         this.content = content;
+        this.articleImageUrl = articleImageUrl;
     }
 
     protected Article(Parcel in) {
@@ -24,6 +26,7 @@ public class Article implements Parcelable {
         title = in.readString();
         date = in.readString();
         content = in.readString();
+        articleImageUrl = in.readString();
     }
 
     public static final Creator<Article> CREATOR = new Creator<Article>() {
@@ -78,6 +81,14 @@ public class Article implements Parcelable {
         this.content = content;
     }
 
+    public void setArticleImageUrl(String articleImageUrl) {
+        this.articleImageUrl = articleImageUrl;
+    }
+
+    public String getArticleImageUrl() {
+        return articleImageUrl;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -90,5 +101,6 @@ public class Article implements Parcelable {
         parcel.writeString(title);
         parcel.writeString(date);
         parcel.writeString(content);
+        parcel.writeString(articleImageUrl);
     }
 }

@@ -7,7 +7,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="wrap_content"
         android:id="@+id/cardView"
         app:cardCornerRadius="10dp"
         android:layout_marginBottom="4dp">
@@ -18,26 +18,37 @@
             android:orientation="vertical"
             android:layout_gravity="center">
 
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/article_image"
+                android:paddingTop="20dp"
+                android:paddingLeft="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/health_industry"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/article_title"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@id/article_image"
                 app:layout_constraintTop_toTopOf="parent"
                 android:paddingLeft="20dp"
                 android:paddingTop="20dp"
                 android:text="Title"
-                android:textSize="28dp"/>
+                android:textSize="24dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/article_date"
                 app:layout_constraintTop_toBottomOf="@+id/article_title"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@id/article_image"
                 android:paddingLeft="40dp"
                 android:paddingTop="5dp"
-                android:text="Date"/>
+                android:text="Date"
+                android:paddingBottom="10dp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

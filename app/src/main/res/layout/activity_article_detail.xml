@@ -6,12 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".ArticleDetail">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/article_detail_image"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/health_industry"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Title"
-        android:textSize="28dp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="30dp"
+        app:layout_constraintTop_toBottomOf="@id/article_detail_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp"
@@ -25,7 +34,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp"
-        android:id="@+id/article_detail_date"/>
+        android:id="@+id/article_detail_date"
+        android:textSize="24dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -37,7 +47,8 @@
         android:text="Capacity must not exceed 50 customers or one customer per 4 square metres in an existing seated dining area, whichever is the lesser.
         Maximum of 20 people per individual group."
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"/>
+        android:layout_marginRight="10dp"
+        android:textSize="24dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

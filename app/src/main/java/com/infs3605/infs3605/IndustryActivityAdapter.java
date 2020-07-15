@@ -1,12 +1,16 @@
 package com.infs3605.infs3605;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
@@ -15,10 +19,12 @@ import java.util.ArrayList;
 public class IndustryActivityAdapter extends RecyclerView.Adapter<IndustryActivityAdapter.ViewHolder> {
     private ArticleClickInterface articleClickInterface;
     private ArrayList<Article> mArticleList;
+    private Context context;
 
-    public IndustryActivityAdapter(ArrayList<Article> articleList, ArticleClickInterface articleClickInterface){
+    public IndustryActivityAdapter(ArrayList<Article> articleList, ArticleClickInterface articleClickInterface, Context context){
         mArticleList = articleList;
         this.articleClickInterface = articleClickInterface;
+        this.context = context;
     }
 
     @NonNull
@@ -35,6 +41,7 @@ public class IndustryActivityAdapter extends RecyclerView.Adapter<IndustryActivi
 
         holder.titleText.setText(currentItem.getTitle());
         holder.dateText.setText(currentItem.getDate());
+        Picasso.with(context).load(currentItem.getArticleImageUrl()).into(holder.image);
 
     }
 
@@ -46,6 +53,7 @@ public class IndustryActivityAdapter extends RecyclerView.Adapter<IndustryActivi
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView titleText;
         public TextView dateText;
+        public ImageView image;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -54,6 +62,7 @@ public class IndustryActivityAdapter extends RecyclerView.Adapter<IndustryActivi
 
             titleText = itemView.findViewById(R.id.article_title);
             dateText = itemView.findViewById(R.id.article_date);
+            image = itemView.findViewById(R.id.article_image);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

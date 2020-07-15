@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements IndustryClickInte
         ArrayList <String> communitySegments = new ArrayList<String>();
         communitySegments.add("Libraries");
         communitySegments.add("Childcare services");
-        communitySegments.add("Community centres and Halls");
+        communitySegments.add("Community venues");
         ArrayList <String> entertainmentSegments = new ArrayList<String>();
         entertainmentSegments.add("Museums");
         entertainmentSegments.add("Zoos");
@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements IndustryClickInte
         ArrayList <String> sportSegments = new ArrayList<String>();
         sportSegments.add("Gyms");
         sportSegments.add("Water Sports");
+        sportSegments.add("Team Sports");
         ArrayList <String> retailSegments = new ArrayList<String>();
         retailSegments.add("Shops");
 
