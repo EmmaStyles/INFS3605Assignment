@@ -126,7 +126,7 @@ public class GeneralInfoActivity extends AppCompatActivity implements ArticleCli
     @Override
     public void onArticleClick(int position) {
         Intent intent = new Intent(this,GeneralInfoDetailActivity.class);
-        intent.putExtra("GIobject",generalInfoData.get(position));
+        intent.putExtra("GIobject",orderedData.get(position));
 
         startActivity(intent);
 
