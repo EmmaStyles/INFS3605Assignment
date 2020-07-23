@@ -39,6 +39,9 @@
         android:layout_gravity="bottom"
         app:menu="@menu/menu_navigation"
         app:itemHorizontalTranslationEnabled="false"
+        android:background="@color/blue"
+        app:itemIconTint="@drawable/tab_color"
+        app:itemTextColor="@drawable/tab_color"
         />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

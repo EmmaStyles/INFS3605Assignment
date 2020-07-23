@@ -48,8 +48,8 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
         IndustryClass industryClass = mDataset.get(position);
         TextView textView = holder.industryNameTextView;
         textView.setText(industryClass.getIndustryName());
-
-        Picasso.with(context).load(industryClass.getImageUrl()).into(holder.industryImage);
+        holder.industryImage.setImageResource(industryClass.getImage());
+//        Picasso.with(context).load(industryClass.getImageUrl()).into(holder.industryImage);
 
 
     }
