@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -45,6 +46,7 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
     Workbook workbook;
     ArrayList<String> industries, segments, titles, dates, contents, images;
     ArrayList<ArrayList<String>> list = new ArrayList<>();
+    TextView industryHeader;
 
 IndustryClass industryClass;
     @Override
@@ -103,6 +105,9 @@ IndustryClass industryClass;
         Intent intent = getIntent();
          industryClass = intent.getParcelableExtra("Industry Object");
 
+         industryHeader = findViewById(R.id.indsutry_chosen_TV);
+         industryHeader.setText(industryClass.getIndustryName());
+
         ArrayList<String> industrySegments= new ArrayList<>();
         industrySegments.add("All");
 
@@ -128,13 +133,13 @@ IndustryClass industryClass;
         data.clear();
 
 
-        data.add(new Article("Travel", "Hotels", "Accommodation, Holiday HomeS & Holiday Rentals", "23/06/2020", "Accommodation services may be offered without restriction, except holiday rentals which are subject to restrictions.\n","https://media-cdn.tripadvisor.com/media/photo-s/16/1a/ea/54/hotel-presidente-4s.jpg\n"));
-        data.add(new Article("Property", "Real Estate", "Auction houses (other than Clearing houses)", "23/06/2020", "Accommodation services may be offered without restriction, except holiday rentals which are subject to restrictions.\n","https://media-cdn.tripadvisor.com/media/photo-s/16/1a/ea/54/hotel-presidente-4s.jpg\n"));
-        data.add(new Article("Hospitality", "Bars", "Bars, pubs, clubs, cellar doors, micro-breweries, distilleries and casinos", "23/06/2020", "Capacity must not exceed 50 customers or one customer per 4 square metres (excluding staff) per existing separate seated food or drink area.\n","https://media-cdn.tripadvisor.com/media/photo-s/16/1a/ea/54/hotel-presidente-4s.jpg\n"));
-        data.add(new Article("Beauty", "Nail Salons", "Beauty, nail, tanning and waxing salons, tattoo and massage parlours and spas", "23/06/2020", "Capacity must not exceed 20 customers or one customer per 4 square metres.\n","https://media-cdn.tripadvisor.com/media/photo-s/16/1a/ea/54/hotel-presidente-4s.jpg\n"));
-        data.add(new Article("Hospitality", "Restaurants and Cafes", "Cafes and restaurants", "23/06/2020", "Capacity must not exceed 50 customers or one customer per 4 square metres.\n","https://media-cdn.tripadvisor.com/media/photo-s/16/1a/ea/54/hotel-presidente-4s.jpg\n"));
-        data.add(new Article("Hospitality", "Restaurants and Cafes", "Food Courts", "23/06/2020", "Operators must have a COVID safety plan\n","https://media-cdn.tripadvisor.com/media/photo-s/16/1a/ea/54/hotel-presidente-4s.jpg\n"));
-        data.add(new Article("Beauty", "Hairdressers", "Hairdresses and barbers", "23/06/2020", "Hairdressing salons and barbers may open with restrictions.\n","https://media-cdn.tripadvisor.com/media/photo-s/16/1a/ea/54/hotel-presidente-4s.jpg\n"));
+        data.add(new Article("Travel", "Hotels", "Accommodation, Holiday HomeS & Holiday Rentals", "23/06/2020", "Accommodation services may be offered without restriction, except holiday rentals which are subject to restrictions.\n"));
+        data.add(new Article("Property", "Real Estate", "Auction houses (other than Clearing houses)", "23/06/2020", "Accommodation services may be offered without restriction, except holiday rentals which are subject to restrictions.\n"));
+        data.add(new Article("Hospitality", "Bars", "Bars, pubs, clubs, cellar doors, micro-breweries, distilleries and casinos", "23/06/2020", "Capacity must not exceed 50 customers or one customer per 4 square metres (excluding staff) per existing separate seated food or drink area.\n"));
+        data.add(new Article("Beauty", "Nail Salons", "Beauty, nail, tanning and waxing salons, tattoo and massage parlours and spas", "23/06/2020", "Capacity must not exceed 20 customers or one customer per 4 square metres.\n"));
+        data.add(new Article("Hospitality", "Restaurants and Cafes", "Cafes and restaurants", "23/06/2020", "Capacity must not exceed 50 customers or one customer per 4 square metres.\n"));
+        data.add(new Article("Hospitality", "Restaurants and Cafes", "Food Courts", "23/06/2020", "Operators must have a COVID safety plan\n"));
+        data.add(new Article("Beauty", "Hairdressers", "Hairdresses and barbers", "23/06/2020", "Hairdressing salons and barbers may open with restrictions.\n"));
         Log.d("TAG","OnSuccess1: "   );
 
 
@@ -144,8 +149,8 @@ IndustryClass industryClass;
     ArrayList<Article> articlesToDisplay = new ArrayList<Article>();
     private void getSelectedSegment(String segment){
 
-//        getArticles();
-        readData();
+        getArticles();
+//        readData();
         
 
         String industryChosen = industryClass.getIndustryName();
@@ -154,7 +159,7 @@ IndustryClass industryClass;
 
             for(int i = 0; i< data.size(); i++){
                 if(data.get(i).getIndustry().equalsIgnoreCase(industryChosen)){
-                    articlesToDisplay.add(new Article(data.get(i).getIndustry(), data.get(i).getSegment() ,data.get(i).getTitle(), data.get(i).getDate(), data.get(i).getContent(), data.get(i).getArticleImageUrl()));
+                    articlesToDisplay.add(new Article(data.get(i).getIndustry(), data.get(i).getSegment() ,data.get(i).getTitle(), data.get(i).getDate(), data.get(i).getContent()));
                 }else{
 
                 }
@@ -170,7 +175,7 @@ IndustryClass industryClass;
             for(int i = 0; i< data.size(); i++){
 //            for(Article article : getArticles()){
                 if(data.get(i).getSegment().equalsIgnoreCase(segmentChosen)){
-                    articlesToDisplay.add(new Article(data.get(i).getIndustry(), data.get(i).getSegment() ,data.get(i).getTitle(), data.get(i).getDate(), data.get(i).getContent(), data.get(i).getArticleImageUrl()));
+                    articlesToDisplay.add(new Article(data.get(i).getIndustry(), data.get(i).getSegment() ,data.get(i).getTitle(), data.get(i).getDate(), data.get(i).getContent()));
                 }
             }
             mIndustryActAdapter = new IndustryActivityAdapter(articlesToDisplay, this, this);
@@ -240,7 +245,7 @@ String segmentChosen;
 //
 //                            images.add(row[5].getContents());
 
-                            data.add(new Article(row[0].getContents(),row[1].getContents(),row[2].getContents(),row[3].getContents(),row[4].getContents(), "https://media-cdn.tripadvisor.com/media/photo-s/16/1a/ea/54/hotel-presidente-4s.jpg\\n"));
+                            data.add(new Article(row[0].getContents(),row[1].getContents(),row[2].getContents(),row[3].getContents(),row[4].getContents()));
 
                             Log.d("IndustryActivity", "Just created " + data.toString());
                         }

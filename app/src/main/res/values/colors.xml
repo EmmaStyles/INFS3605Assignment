@@ -9,6 +9,9 @@
     <color name="blue">#DCEDF9</color>
     <color name="darkBlue">#202E61</color>
     <color name="medBlue">#A1D2FA</color>
+    <color name="lightPurple">#D2DAEA</color>
+    <color name="blue1">#C1DFF5</color>
+    <color name="blue2">#B9E5F3</color>
 
 
 </resources>

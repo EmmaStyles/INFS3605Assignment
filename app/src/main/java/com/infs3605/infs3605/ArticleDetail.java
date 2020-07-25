@@ -24,7 +24,7 @@ public class ArticleDetail extends AppCompatActivity {
         articleTitle = findViewById(R.id.article_detail_title);
         articleDate = findViewById(R.id.article_detail_date);
         articleContent = findViewById(R.id.article_detail_content);
-        articleImage = findViewById(R.id.article_detail_image);
+//        articleImage = findViewById(R.id.article_detail_image);
 
         Intent intent = getIntent();
         article = intent.getParcelableExtra("Article Object");
@@ -32,7 +32,7 @@ public class ArticleDetail extends AppCompatActivity {
         articleTitle.setText(article.getTitle());
         articleDate.setText(article.getDate());
         articleContent.setText(article.getContent());
-        Picasso.with(this).load(article.getArticleImageUrl()).into(articleImage);
+//        Picasso.with(this).load(article.getArticleImageUrl()).into(articleImage);
 
     }
 }

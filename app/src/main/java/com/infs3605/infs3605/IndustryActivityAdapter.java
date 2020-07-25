@@ -44,7 +44,7 @@ public class IndustryActivityAdapter extends RecyclerView.Adapter<IndustryActivi
 
         holder.titleText.setText(currentItem.getTitle());
         holder.dateText.setText(currentItem.getDate());
-        Picasso.with(context).load(currentItem.getArticleImageUrl()).into(holder.image);
+//        Picasso.with(context).load(currentItem.getArticleImageUrl()).into(holder.image);
 
     }
 
@@ -56,7 +56,7 @@ public class IndustryActivityAdapter extends RecyclerView.Adapter<IndustryActivi
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView titleText;
         public TextView dateText;
-        public ImageView image;
+//        public ImageView image;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -65,7 +65,7 @@ public class IndustryActivityAdapter extends RecyclerView.Adapter<IndustryActivi
 
             titleText = itemView.findViewById(R.id.article_title);
             dateText = itemView.findViewById(R.id.article_date);
-            image = itemView.findViewById(R.id.article_image);
+//            image = itemView.findViewById(R.id.article_image);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
