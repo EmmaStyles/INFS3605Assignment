@@ -12,6 +12,9 @@
     <color name="lightPurple">#D2DAEA</color>
     <color name="blue1">#C1DFF5</color>
     <color name="blue2">#B9E5F3</color>
+    <color name="blue3">#EDF6FC</color>
+    <color name="purple1">#DED8E2</color>
+    <color name="purple2">#EEECEF</color>
 
 
 </resources>

@@ -33,13 +33,13 @@
 
     <Spinner
         android:id="@+id/industrySegment_spinner"
-        android:layout_width="100dp"
+        android:layout_width="250dp"
         android:layout_height="30dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="30dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/industry_header"/>
+        app:layout_constraintTop_toBottomOf="@+id/industry_header" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_industry_activity"

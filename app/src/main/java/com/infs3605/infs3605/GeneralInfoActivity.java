@@ -88,8 +88,8 @@ public class GeneralInfoActivity extends AppCompatActivity implements ArticleCli
         ArrayList<String> spinnerEntries = new ArrayList<>();
         spinnerEntries.add("All");
         spinnerEntries.add("Tax Support");
-        spinnerEntries.add("COVID 19 scams");
-        spinnerEntries.add("closing or pausing");
+        spinnerEntries.add("COVID 19 Scams");
+        spinnerEntries.add("Closing or Pausing");
         spinnerEntries.add("Safe Business Operations");
 
         ArrayAdapter<String> genInfoAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerEntries);
