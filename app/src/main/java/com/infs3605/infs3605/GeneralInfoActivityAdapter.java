@@ -25,7 +25,7 @@ public class GeneralInfoActivityAdapter extends RecyclerView.Adapter<GeneralInfo
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.general_info_activity_recycler_view, parent, false);
         GeneralInfoActivityAdapter.ViewHolder viewHolder = new GeneralInfoActivityAdapter.ViewHolder(v);
         return viewHolder;
-    }
+}
 
     @Override
     public void onBindViewHolder(@NonNull GeneralInfoActivityAdapter.ViewHolder holder, int position) {

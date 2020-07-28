@@ -48,11 +48,14 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
     ArrayList<ArrayList<String>> list = new ArrayList<>();
     TextView industryHeader;
 
-IndustryClass industryClass;
+    IndustryClass industryClass;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_industry);
+        Log.d("IndustryActivity", "IndustryActivity was created");
+
+        readData();
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationPane);
 
@@ -103,15 +106,15 @@ IndustryClass industryClass;
         recyclerView.setLayoutManager(layoutManager);
 
         Intent intent = getIntent();
-         industryClass = intent.getParcelableExtra("Industry Object");
+        industryClass = intent.getParcelableExtra("Industry Object");
 
-         industryHeader = findViewById(R.id.indsutry_chosen_TV);
-         industryHeader.setText(industryClass.getIndustryName());
+        industryHeader = findViewById(R.id.indsutry_chosen_TV);
+        industryHeader.setText(industryClass.getIndustryName());
 
         ArrayList<String> industrySegments= new ArrayList<>();
         industrySegments.add("All");
 
-            //Fills the ArrayList industrySegments with segments that come from the parcelable Industry Object clicked on
+        //Fills the ArrayList industrySegments with segments that come from the parcelable Industry Object clicked on
         for(int i=0; i<industryClass.industrySegments.size(); i++){
             String segment = industryClass.industrySegments.get(i);
             industrySegments.add(segment);
@@ -149,9 +152,9 @@ IndustryClass industryClass;
     ArrayList<Article> articlesToDisplay = new ArrayList<Article>();
     private void getSelectedSegment(String segment){
 
-        getArticles();
-//        readData();
-        
+//        getArticles();
+
+
 
         String industryChosen = industryClass.getIndustryName();
         // changed this to find industry
@@ -178,6 +181,8 @@ IndustryClass industryClass;
                     articlesToDisplay.add(new Article(data.get(i).getIndustry(), data.get(i).getSegment() ,data.get(i).getTitle(), data.get(i).getDate(), data.get(i).getContent()));
                 }
             }
+            Log.d("TAG","OnSuccess4: the size of the articlestodisplay list is " + articlesToDisplay.size());
+
             mIndustryActAdapter = new IndustryActivityAdapter(articlesToDisplay, this, this);
         }
         recyclerView.setAdapter(mIndustryActAdapter);
@@ -185,11 +190,13 @@ IndustryClass industryClass;
     }
 
 
-String segmentChosen;
+    String segmentChosen;
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-         segmentChosen = adapterView.getItemAtPosition(position).toString();
+        segmentChosen = adapterView.getItemAtPosition(position).toString();
         Toast.makeText(adapterView.getContext(), segmentChosen, Toast.LENGTH_SHORT ).show();
+
+        Log.d("IndustryActivity", "segmentChosen is " + segmentChosen);
 
         getSelectedSegment(segmentChosen);
 
@@ -218,7 +225,7 @@ String segmentChosen;
         client.get(excelUrl, new FileAsyncHttpResponseHandler(this){
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
-            Toast.makeText(IndustryActivity.this,"Download Failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(IndustryActivity.this,"Download Failed", Toast.LENGTH_SHORT).show();
                 throwable.printStackTrace();
                 Log.d("TAG","OnFail: failed download" );
             }
@@ -247,20 +254,22 @@ String segmentChosen;
 
                             data.add(new Article(row[0].getContents(),row[1].getContents(),row[2].getContents(),row[3].getContents(),row[4].getContents()));
 
-                            Log.d("IndustryActivity", "Just created " + data.toString());
+                            Log.d("IndustryActivity", "Just created " + data.get(i).getIndustry());
                         }
-
-
+                        // first data is the second item since it is the first one is the header of the column
+//                        Log.d("Outside the for loop", "first object in the data list is " + data.get(1).getIndustry());
                     } catch (IOException e) {
                         e.printStackTrace();
                     } catch (BiffException e) {
                         e.printStackTrace();
                     }
+//                    Log.d("Outside Try and Catch", "first object in the data list is " + data.get(1).getIndustry());
 
                 }
-        }
+            }
         });
-
+        //crashes at this statement
+//        Log.d("outside the method", "first obj is " + data.get(0).getIndustry());
     }
 
 }
