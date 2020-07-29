@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +26,7 @@ import com.loopj.android.http.FileAsyncHttpResponseHandler;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.logging.FileHandler;
 
@@ -44,22 +47,26 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
     AsyncHttpClient client;
     String excelUrl = "https://raw.githubusercontent.com/EmmaStyles/INFS3605Assignment/master/industryData.xls";
     Workbook workbook;
-    ArrayList<String> industries, segments, titles, dates, contents, images;
-    ArrayList<ArrayList<String>> list = new ArrayList<>();
-    TextView industryHeader;
+    ArrayList<Article> data = new ArrayList<Article>();
 
+    //    ArrayList<String> industries, segments, titles, dates, contents, images;
+//    ArrayList<ArrayList<String>> list = new ArrayList<>();
+    TextView industryHeader;
+    ProgressBar progressBar;
     IndustryClass industryClass;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_industry);
         Log.d("IndustryActivity", "IndustryActivity was created");
 
-        readData();
+        progressBar = findViewById(R.id.progress_bar);
+//
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationPane);
 
-        //checks/selects the bottom icons as they are clicked
+        //checks/selects readData();the bottom icons as they are clicked
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(1);
         menuItem.setChecked(true);
@@ -68,41 +75,41 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()){
+                switch (menuItem.getItemId()) {
                     case R.id.home:
                         Intent intent1 = new Intent(IndustryActivity.this, MainActivity.class);
                         startActivity(intent1);
-                        overridePendingTransition(0,0);
+                        overridePendingTransition(0, 0);
                         break;
                     case R.id.industries:
                         break;
                     case R.id.liveUpdates:
                         Intent intent2 = new Intent(IndustryActivity.this, LiveUpdatesActivity.class);
                         startActivity(intent2);
-                        overridePendingTransition(0,0);
+                        overridePendingTransition(0, 0);
                         break;
                     case R.id.schemes:
                         Intent intent3 = new Intent(IndustryActivity.this, SchemesActivity.class);
                         startActivity(intent3);
-                        overridePendingTransition(0,0);
+                        overridePendingTransition(0, 0);
                         break;
                 }
                 return false;
             }
         });
 
-        industries = new ArrayList<>();
-        segments = new ArrayList<>();
-        titles = new ArrayList<>();
-        dates = new ArrayList<>();
-        contents = new ArrayList<>();
-        images = new ArrayList<>();
+//        industries = new ArrayList<>();
+//        segments = new ArrayList<>();
+//        titles = new ArrayList<>();
+//        dates = new ArrayList<>();
+//        contents = new ArrayList<>();
+//        images = new ArrayList<>();
 
         spinner = findViewById(R.id.industrySegment_spinner);
         recyclerView = (RecyclerView) findViewById(R.id.rv_industry_activity);
         recyclerView.setHasFixedSize(true);
 
-        layoutManager  = new LinearLayoutManager(getApplicationContext());
+        layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
 
         Intent intent = getIntent();
@@ -111,16 +118,16 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
         industryHeader = findViewById(R.id.indsutry_chosen_TV);
         industryHeader.setText(industryClass.getIndustryName());
 
-        ArrayList<String> industrySegments= new ArrayList<>();
+        ArrayList<String> industrySegments = new ArrayList<>();
         industrySegments.add("All");
 
         //Fills the ArrayList industrySegments with segments that come from the parcelable Industry Object clicked on
-        for(int i=0; i<industryClass.industrySegments.size(); i++){
+        for (int i = 0; i < industryClass.industrySegments.size(); i++) {
             String segment = industryClass.industrySegments.get(i);
             industrySegments.add(segment);
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,industrySegments);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, industrySegments);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner.setAdapter(adapter);
@@ -129,9 +136,9 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
         recyclerView.setLayoutManager(layoutManager);
 
     }
-    ArrayList<Article> data = new ArrayList<Article>();
 
-    private ArrayList<Article> getArticles(){
+
+    private ArrayList<Article> getArticles() {
 
         data.clear();
 
@@ -143,45 +150,44 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
         data.add(new Article("Hospitality", "Restaurants and Cafes", "Cafes and restaurants", "23/06/2020", "Capacity must not exceed 50 customers or one customer per 4 square metres.\n"));
         data.add(new Article("Hospitality", "Restaurants and Cafes", "Food Courts", "23/06/2020", "Operators must have a COVID safety plan\n"));
         data.add(new Article("Beauty", "Hairdressers", "Hairdresses and barbers", "23/06/2020", "Hairdressing salons and barbers may open with restrictions.\n"));
-        Log.d("TAG","OnSuccess1: "   );
+        Log.d("TAG", "OnSuccess1: " + data.get(0));
 
 
         return data;
 
     }
+
     ArrayList<Article> articlesToDisplay = new ArrayList<Article>();
-    private void getSelectedSegment(String segment){
 
-//        getArticles();
-
-
+    private void getSelectedSegment(String segment) {
+//        data.clear();
 
         String industryChosen = industryClass.getIndustryName();
         // changed this to find industry
-        if(segment.equalsIgnoreCase("All")) {
+        Log.d("IndustryActivity", "industryChosen " + industryChosen);
+        if (segment.equalsIgnoreCase("All")) {
 
-            for(int i = 0; i< data.size(); i++){
-                if(data.get(i).getIndustry().equalsIgnoreCase(industryChosen)){
-                    articlesToDisplay.add(new Article(data.get(i).getIndustry(), data.get(i).getSegment() ,data.get(i).getTitle(), data.get(i).getDate(), data.get(i).getContent()));
-                }else{
+            for (int i = 0; i < data.size(); i++) {
+                if (data.get(i).getIndustry().equalsIgnoreCase(industryChosen)) {
+                    articlesToDisplay.add(new Article(data.get(i).getIndustry(), data.get(i).getSegment(), data.get(i).getTitle(), data.get(i).getDate(), data.get(i).getContent()));
+                } else {
 
                 }
 
             }
-            Log.d("TAG","OnSuccess3: " + articlesToDisplay.size());
+            Log.d("TAG", "OnSuccess3: " + articlesToDisplay.size());
             mIndustryActAdapter = new IndustryActivityAdapter(articlesToDisplay, this, this);
 
 
-        }
-        else{
+        } else {
             articlesToDisplay.clear();
-            for(int i = 0; i< data.size(); i++){
+            for (int i = 0; i < data.size(); i++) {
 //            for(Article article : getArticles()){
-                if(data.get(i).getSegment().equalsIgnoreCase(segmentChosen)){
-                    articlesToDisplay.add(new Article(data.get(i).getIndustry(), data.get(i).getSegment() ,data.get(i).getTitle(), data.get(i).getDate(), data.get(i).getContent()));
+                if (data.get(i).getSegment().equalsIgnoreCase(segmentChosen)) {
+                    articlesToDisplay.add(new Article(data.get(i).getIndustry(), data.get(i).getSegment(), data.get(i).getTitle(), data.get(i).getDate(), data.get(i).getContent()));
                 }
             }
-            Log.d("TAG","OnSuccess4: the size of the articlestodisplay list is " + articlesToDisplay.size());
+            Log.d("TAG", "OnSuccess4: the size of the articlestodisplay list is " + articlesToDisplay.size());
 
             mIndustryActAdapter = new IndustryActivityAdapter(articlesToDisplay, this, this);
         }
@@ -191,14 +197,17 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
 
 
     String segmentChosen;
+
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
         segmentChosen = adapterView.getItemAtPosition(position).toString();
-        Toast.makeText(adapterView.getContext(), segmentChosen, Toast.LENGTH_SHORT ).show();
+        Toast.makeText(adapterView.getContext(), segmentChosen, Toast.LENGTH_SHORT).show();
 
         Log.d("IndustryActivity", "segmentChosen is " + segmentChosen);
 
         getSelectedSegment(segmentChosen);
+
+
 
     }
 
@@ -209,39 +218,39 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
 
     @Override
     public void onArticleClick(int position) {
-        Intent intent = new Intent(this,ArticleDetail.class);
+        Intent intent = new Intent(this, ArticleDetail.class);
         intent.putExtra("Article Object", articlesToDisplay.get(position));
 
         startActivity(intent);
     }
 
 
-    public void readData(){
+    public void readData() {
         // method to access data in the excel file
 
         data.clear();
 
         client = new AsyncHttpClient();
-        client.get(excelUrl, new FileAsyncHttpResponseHandler(this){
+        client.get(excelUrl, new FileAsyncHttpResponseHandler(this) {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
-                Toast.makeText(IndustryActivity.this,"Download Failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(IndustryActivity.this, "Download Failed", Toast.LENGTH_SHORT).show();
                 throwable.printStackTrace();
-                Log.d("TAG","OnFail: failed download" );
+                Log.d("TAG", "OnFail: failed download");
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, File file) {
-                Toast.makeText(IndustryActivity.this, "File Downloaded",Toast.LENGTH_SHORT).show();
+                Toast.makeText(IndustryActivity.this, "File Downloaded", Toast.LENGTH_SHORT).show();
 
-                Log.d("TAG","OnSuccess1: downloaded" );
+                Log.d("TAG", "OnSuccess1: downloaded");
                 WorkbookSettings ws = new WorkbookSettings();
                 ws.setGCDisabled(true);
-                if(file != null){
+                if (file != null) {
                     try {
                         workbook = workbook.getWorkbook(file);
                         Sheet sheet = workbook.getSheet(0);
-                        for(int i=0; i<sheet.getRows(); i++){
+                        for (int i = 0; i < sheet.getRows(); i++) {
 
                             Cell[] row = sheet.getRow(i);
 //                            industries.add(row[0].getContents());
@@ -252,10 +261,14 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
 //
 //                            images.add(row[5].getContents());
 
-                            data.add(new Article(row[0].getContents(),row[1].getContents(),row[2].getContents(),row[3].getContents(),row[4].getContents()));
+                            data.add(new Article(row[0].getContents(), row[1].getContents(), row[2].getContents(), row[3].getContents(), row[4].getContents()));
 
                             Log.d("IndustryActivity", "Just created " + data.get(i).getIndustry());
                         }
+                        Log.d("IndustryActivity", "outside try statement " + data.size());
+
+
+
                         // first data is the second item since it is the first one is the header of the column
 //                        Log.d("Outside the for loop", "first object in the data list is " + data.get(1).getIndustry());
                     } catch (IOException e) {
@@ -263,13 +276,15 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
                     } catch (BiffException e) {
                         e.printStackTrace();
                     }
-//                    Log.d("Outside Try and Catch", "first object in the data list is " + data.get(1).getIndustry());
+//
 
                 }
             }
         });
-        //crashes at this statement
-//        Log.d("outside the method", "first obj is " + data.get(0).getIndustry());
+
+
     }
+
+
 
 }

@@ -1,8 +1,5 @@
 package com.infs3605.infs3605;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,10 +8,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.infs3605.infs3605.APIEntities.Record;
 import com.infs3605.infs3605.APIEntities.RecordsResponse;
 import com.infs3605.infs3605.APIEntities.Result;
-import com.infs3605.infs3605.APIEntities.Record;
 
 import java.io.IOException;
 import java.util.List;

@@ -6,74 +6,131 @@
     android:layout_height="match_parent"
     tools:context=".LiveUpdatesActivity">
 
+    <ImageView
+        android:id="@+id/liveupdates_header"
+        android:layout_width="match_parent"
+        android:layout_height="127dp"
+        android:layout_marginTop="20dp"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/liveupdates_header" />
+
+    <ImageView
+        android:id="@+id/square1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/liveupdate_squares"
+        app:layout_constraintTop_toBottomOf="@id/topOne"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/liveupdates_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="Live Updates"
+        android:textColor="@color/darkBlue"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/liveupdates_header"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
         android:id="@+id/overallCases"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:text="Total cases"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="85dp"
+        android:text="3000"
+        android:textStyle="bold"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintStart_toStartOf="@+id/description"
-        app:layout_constraintTop_toBottomOf="@+id/description" />
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:text="Live Updates"
-        android:textSize="36sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/topOne"/>
+
+
 
     <TextView
         android:id="@+id/description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
         android:text="Be up-to-date with the current situation in NSW"
-        app:layout_constraintStart_toStartOf="@+id/title"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+        app:layout_constraintTop_toBottomOf="@id/liveupdates_header"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="16dp"
+        android:textColor="@color/darkBlue"/>
+
+    <ImageView
+        android:id="@+id/square2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/liveupdate_squares"
+        app:layout_constraintTop_toBottomOf="@id/topTwo"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="10dp"/>
+
 
     <TextView
         android:id="@+id/newCases"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="75dp"
-        android:layout_marginLeft="75dp"
-        android:text="New cases"
+        android:layout_marginTop="40dp"
+        android:text="100"
+        android:textStyle="bold"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintStart_toEndOf="@+id/overallCases"
-        app:layout_constraintTop_toTopOf="@+id/overallCases" />
+        app:layout_constraintTop_toBottomOf="@id/topTwo"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginRight="95dp"/>
+
+
 
     <TextView
         android:id="@+id/topOne"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:text="Total Cases in NSW:"
-        app:layout_constraintBottom_toTopOf="@+id/overallCases"
-        app:layout_constraintStart_toStartOf="@+id/overallCases" />
+        android:text="Overall Cases:"
+        android:textColor="@color/darkBlue"
+        android:layout_marginTop="60dp"
+        android:textSize="24dp"
+        app:layout_constraintTop_toBottomOf="@id/description"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="40dp"/>
 
     <TextView
         android:id="@+id/topTwo"
+        android:textColor="@color/darkBlue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:text="New cases:"
-        app:layout_constraintBottom_toTopOf="@+id/newCases"
-        app:layout_constraintStart_toStartOf="@+id/newCases" />
+        android:text="New Cases:"
+        android:textSize="24dp"
+        app:layout_constraintTop_toBottomOf="@+id/description"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="60dp"
+        android:layout_marginRight="40dp"/>
 
     <TextView
         android:id="@+id/updated"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="@+id/description"
-        app:layout_constraintTop_toBottomOf="@+id/description" />
+        app:layout_constraintTop_toBottomOf="@+id/description"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="15dp"
+        android:textSize="12dp"
+        android:textColor="@color/darkBlue"/>
+
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
