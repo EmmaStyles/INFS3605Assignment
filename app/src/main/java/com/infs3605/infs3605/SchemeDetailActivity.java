@@ -13,6 +13,9 @@ public class SchemeDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scheme_detail);
 
+
+        this.setTitle("CovidAware");
+
         Intent intent = getIntent();
         schemeItem = intent.getParcelableExtra("schemeObject");
 

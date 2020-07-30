@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,13 +19,15 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IndustryActivityAdapter extends RecyclerView.Adapter<IndustryActivityAdapter.ViewHolder> {
+public class IndustryActivityAdapter extends RecyclerView.Adapter<IndustryActivityAdapter.ViewHolder> implements Filterable {
     private ArticleClickInterface articleClickInterface;
     private ArrayList<Article> mArticleList;
+    private ArrayList<Article> mArticleListFull;
     private Context context;
 
     public IndustryActivityAdapter(ArrayList<Article> articleList, ArticleClickInterface articleClickInterface, Context context){
         mArticleList = articleList;
+        mArticleListFull = new ArrayList<>(mArticleList);
         this.articleClickInterface = articleClickInterface;
         this.context = context;
 
@@ -53,6 +57,43 @@ public class IndustryActivityAdapter extends RecyclerView.Adapter<IndustryActivi
         return mArticleList.size();
     }
 
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    private Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Article> filteredList = new ArrayList<>();
+
+            if(constraint == null || constraint.length() == 0){
+                filteredList.addAll(mArticleListFull);
+            } else{
+                String filterPattern= constraint.toString().toLowerCase().trim();
+
+                for(Article item : mArticleListFull){
+                    if (item.getTitle().toLowerCase().contains(filterPattern)){
+                        filteredList.add(item);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults results) {
+
+            mArticleList.clear();
+            mArticleList.addAll((List) results.values);
+            notifyDataSetChanged();
+
+        }
+    };
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView titleText;
         public TextView dateText;
@@ -76,4 +117,6 @@ public class IndustryActivityAdapter extends RecyclerView.Adapter<IndustryActivi
 
         }
     }
+
+
 }

@@ -2,6 +2,7 @@ package com.infs3605.infs3605;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements IndustryClickInte
     private MainActivityAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     ArrayList<IndustryClass> myDataset = new ArrayList<IndustryClass>();
+    Article article;
 
 
     @Override
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements IndustryClickInte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        this.setTitle("CovidAware");
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationPane);
 
         //checks/selects the bottom icons as they are clicked
@@ -64,11 +67,14 @@ public class MainActivity extends AppCompatActivity implements IndustryClickInte
             }
         });
 
+
+
         recyclerView = (RecyclerView) findViewById(R.id.maRecycleView);
         recyclerView.setHasFixedSize(true);
 
         layoutManager  = new GridLayoutManager(getApplicationContext(),2);
         recyclerView.setLayoutManager(layoutManager);
+
 
         ArrayList <String> travelSegements = new ArrayList<String>();
         travelSegements.add("Hotels");
@@ -112,6 +118,7 @@ public class MainActivity extends AppCompatActivity implements IndustryClickInte
 
 
         mAdapter = new MainActivityAdapter(myDataset,this, this);
+
         recyclerView.setAdapter(mAdapter);
 
     }
@@ -125,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements IndustryClickInte
         SearchView searchView = (SearchView) searchItem.getActionView();
 
         searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        searchView.setQueryHint("Search Industry");
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -151,4 +159,6 @@ public class MainActivity extends AppCompatActivity implements IndustryClickInte
         startActivity(intent);
 
     }
+
+
 }

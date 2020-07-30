@@ -11,11 +11,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,6 +57,10 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
     TextView industryHeader;
     ProgressBar progressBar;
     IndustryClass industryClass;
+    IndustryClass industryClass2;
+    ArrayList<String> industrySegments;
+    IndustryClass industryClassFinal;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,9 +68,11 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
         setContentView(R.layout.activity_industry);
         Log.d("IndustryActivity", "IndustryActivity was created");
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         progressBar = findViewById(R.id.progress_bar);
 //
-
+        this.setTitle("CovidAware");
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationPane);
 
         //checks/selects readData();the bottom icons as they are clicked
@@ -77,11 +86,14 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.home:
-                        Intent intent1 = new Intent(IndustryActivity.this, MainActivity.class);
+                        Intent intent1 = new Intent(IndustryActivity.this, GeneralInfoActivity.class);
                         startActivity(intent1);
                         overridePendingTransition(0, 0);
                         break;
                     case R.id.industries:
+                        Intent intent4 = new Intent(IndustryActivity.this, MainActivity.class);
+                        startActivity(intent4);
+                        overridePendingTransition(0, 0);
                         break;
                     case R.id.liveUpdates:
                         Intent intent2 = new Intent(IndustryActivity.this, LiveUpdatesActivity.class);
@@ -98,12 +110,6 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
             }
         });
 
-//        industries = new ArrayList<>();
-//        segments = new ArrayList<>();
-//        titles = new ArrayList<>();
-//        dates = new ArrayList<>();
-//        contents = new ArrayList<>();
-//        images = new ArrayList<>();
 
         spinner = findViewById(R.id.industrySegment_spinner);
         recyclerView = (RecyclerView) findViewById(R.id.rv_industry_activity);
@@ -118,10 +124,12 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
         industryHeader = findViewById(R.id.indsutry_chosen_TV);
         industryHeader.setText(industryClass.getIndustryName());
 
+
         ArrayList<String> industrySegments = new ArrayList<>();
         industrySegments.add("All");
 
         //Fills the ArrayList industrySegments with segments that come from the parcelable Industry Object clicked on
+
         for (int i = 0; i < industryClass.industrySegments.size(); i++) {
             String segment = industryClass.industrySegments.get(i);
             industrySegments.add(segment);
@@ -293,5 +301,33 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
     }
 
 //use synchronous call
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.search_function, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        searchView.setQueryHint("Search Title");
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                // not doing anything here since we want the list to be filtered in real time
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                mIndustryActAdapter.getFilter().filter(s);
+                return false;
+            }
+        });
+        return true;
+    }
+
 
 }

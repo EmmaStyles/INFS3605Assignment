@@ -33,6 +33,8 @@ public class SchemesActivity extends AppCompatActivity implements ArticleClickIn
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schemes);
 
+        this.setTitle("CovidAware");
+
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationPane);
 
         //checks/selects the bottom icons as they are clicked

@@ -19,7 +19,8 @@
         <activity android:name=".ArticleDetail" />
         <activity android:name=".LiveUpdatesActivity" />
         <activity android:name=".SchemesActivity" />
-        <activity android:name=".IndustryActivity" />
+        <activity android:name=".IndustryActivity"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".SplashScreenActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">

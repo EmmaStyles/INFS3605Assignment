@@ -3,19 +3,24 @@ package com.infs3605.infs3605;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class GeneralInfoActivityAdapter extends RecyclerView.Adapter<GeneralInfoActivityAdapter.ViewHolder> {
+public class GeneralInfoActivityAdapter extends RecyclerView.Adapter<GeneralInfoActivityAdapter.ViewHolder> implements Filterable {
     private ArticleClickInterface articleClickInterface;
     private ArrayList<GeneralInfoArticle> mGeneralInfoArticleList;
+    private ArrayList<GeneralInfoArticle> mGeneralInfoArticleListFull;
 
     public GeneralInfoActivityAdapter(ArrayList<GeneralInfoArticle> generalInfoArticleList, ArticleClickInterface articleClickInterface){
         mGeneralInfoArticleList = generalInfoArticleList;
+        mGeneralInfoArticleListFull = new ArrayList<>(mGeneralInfoArticleList);
         this.articleClickInterface =articleClickInterface;
     }
 
@@ -39,6 +44,43 @@ public class GeneralInfoActivityAdapter extends RecyclerView.Adapter<GeneralInfo
     public int getItemCount() {
         return mGeneralInfoArticleList.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    private Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<GeneralInfoArticle> filteredList = new ArrayList<>();
+
+            if(constraint == null || constraint.length() == 0){
+                filteredList.addAll(mGeneralInfoArticleListFull);
+            } else{
+                String filterPattern= constraint.toString().toLowerCase().trim();
+
+                for(GeneralInfoArticle item : mGeneralInfoArticleListFull){
+                    if (item.getGeneralInfoTitle().toLowerCase().contains(filterPattern)){
+                        filteredList.add(item);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults results) {
+
+            mGeneralInfoArticleList.clear();
+            mGeneralInfoArticleList.addAll((List) results.values);
+            notifyDataSetChanged();
+
+        }
+    };
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView generalInfoTitle;

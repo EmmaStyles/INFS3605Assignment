@@ -17,6 +17,8 @@ public class GeneralInfoDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_general_info_detail);
 
+        this.setTitle("CovidAware");
+
         Intent intent = getIntent();
         generalInfoArticle = intent.getParcelableExtra("GIobject");
 

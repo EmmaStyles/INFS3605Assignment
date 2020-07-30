@@ -4,10 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+
+import org.apache.log4j.chainsaw.Main;
 
 public class ArticleDetail extends AppCompatActivity {
     TextView articleTitle;
@@ -15,6 +18,7 @@ public class ArticleDetail extends AppCompatActivity {
     TextView articleContent;
     Article article;
     ImageView articleImage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,8 @@ public class ArticleDetail extends AppCompatActivity {
         articleContent = findViewById(R.id.article_detail_content);
 //        articleImage = findViewById(R.id.article_detail_image);
 
+        this.setTitle("CovidAware");
+
         Intent intent = getIntent();
         article = intent.getParcelableExtra("Article Object");
 
@@ -34,5 +40,7 @@ public class ArticleDetail extends AppCompatActivity {
         articleContent.setText(article.getContent());
 //        Picasso.with(this).load(article.getArticleImageUrl()).into(articleImage);
 
+//
     }
+
 }

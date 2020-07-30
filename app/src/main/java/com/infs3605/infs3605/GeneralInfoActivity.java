@@ -9,10 +9,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +46,8 @@ public class GeneralInfoActivity extends AppCompatActivity implements ArticleCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_general_info);
+
+        this.setTitle("CovidAware");
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationPane);
 
@@ -91,6 +96,8 @@ public class GeneralInfoActivity extends AppCompatActivity implements ArticleCli
         spinnerEntries.add("COVID 19 Scams");
         spinnerEntries.add("Closing or Pausing");
         spinnerEntries.add("Safe Business Operations");
+        spinnerEntries.add("Leave during Covid");
+        spinnerEntries.add("Standing Down during Covid");
 
         ArrayAdapter<String> genInfoAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerEntries);
         genInfoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -222,5 +229,34 @@ public class GeneralInfoActivity extends AppCompatActivity implements ArticleCli
         }
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.search_function, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        searchView.setQueryHint("Search Article Title");
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                // not doing anything here since we want the list to be filtered in real time
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                mGeneralInfoActivityAdapter.getFilter().filter(s);
+                return false;
+            }
+        });
+        return true;
+    }
+
+
 
 }
