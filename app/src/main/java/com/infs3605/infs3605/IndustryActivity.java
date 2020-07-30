@@ -135,6 +135,8 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
 
         recyclerView.setLayoutManager(layoutManager);
 
+        readData();
+
     }
 
 
@@ -161,6 +163,7 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
 
     private void getSelectedSegment(String segment) {
 //        data.clear();
+//try read data now
 
         String industryChosen = industryClass.getIndustryName();
         // changed this to find industry
@@ -276,15 +279,19 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
                     } catch (BiffException e) {
                         e.printStackTrace();
                     }
+
+                    getSelectedSegment(segmentChosen);
 //
 
                 }
+
+                //try do adapter stuff in this portion here
             }
         });
 
 
     }
 
-
+//use synchronous call
 
 }
