@@ -218,8 +218,6 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
 
         getSelectedSegment(segmentChosen);
 
-
-
     }
 
     @Override
@@ -296,7 +294,6 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
                 //try do adapter stuff in this portion here
             }
         });
-
 
     }
 

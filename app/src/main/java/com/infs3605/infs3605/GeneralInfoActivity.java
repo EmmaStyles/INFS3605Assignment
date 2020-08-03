@@ -21,8 +21,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.FileAsyncHttpResponseHandler;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -32,11 +35,22 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import cz.msebera.android.httpclient.Header;
+import jxl.Cell;
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.WorkbookSettings;
+import jxl.read.biff.BiffException;
+
 public class GeneralInfoActivity extends AppCompatActivity implements ArticleClickInterface, AdapterView.OnItemSelectedListener {
     private Spinner generalInfoSpinner;
     private RecyclerView generalInfoRecyclerView;
     private GeneralInfoActivityAdapter mGeneralInfoActivityAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    AsyncHttpClient client;
+    String excelUrl = "https://raw.githubusercontent.com/EmmaStyles/INFS3605Assignment/master/generalInfo_data.xls";
+    Workbook workbook;
+
     ArrayList<GeneralInfoArticle> generalInfoData = new ArrayList<GeneralInfoArticle>();
     ArrayList<GeneralInfoArticle> orderedData = new ArrayList<GeneralInfoArticle>();
 
@@ -93,7 +107,7 @@ public class GeneralInfoActivity extends AppCompatActivity implements ArticleCli
         ArrayList<String> spinnerEntries = new ArrayList<>();
         spinnerEntries.add("All");
         spinnerEntries.add("Tax Support");
-        spinnerEntries.add("COVID 19 Scams");
+        spinnerEntries.add("COVID-19 Scams");
         spinnerEntries.add("Closing or Pausing");
         spinnerEntries.add("Safe Business Operations");
         spinnerEntries.add("Leave during Covid");
@@ -106,6 +120,7 @@ public class GeneralInfoActivity extends AppCompatActivity implements ArticleCli
         generalInfoSpinner.setAdapter(genInfoAdapter);
         generalInfoSpinner.setOnItemSelectedListener(this);
 
+        readData();
 
     }
 
@@ -143,25 +158,25 @@ public class GeneralInfoActivity extends AppCompatActivity implements ArticleCli
 
     private void getSelectedArticleType(String articleTypeChosen) {
 //        getInfoArticles();
-        readData();
+        //readData();
         ArrayList<GeneralInfoArticle> reOrderedList = new ArrayList<GeneralInfoArticle>();
         if (articleTypeChosen.equalsIgnoreCase("all")) {
             Collections.sort(generalInfoData, new SortByDate());
             reOrder(generalInfoData);
 
-            mGeneralInfoActivityAdapter = new GeneralInfoActivityAdapter(orderedData, this);
+            mGeneralInfoActivityAdapter = new GeneralInfoActivityAdapter(generalInfoData, this);
 
         } else {
             infoArticlesToDisplay.clear();
 //
-            for( int i = 0; i<generalInfoData.size(); i++){
+            for(int i = 0; i<generalInfoData.size(); i++){
                 if(generalInfoData.get(i).getArticleType().equalsIgnoreCase(articleTypeChosen)){
                     infoArticlesToDisplay.add(new GeneralInfoArticle(generalInfoData.get(i).getArticleType(), generalInfoData.get(i).generalInfoTitle, generalInfoData.get(i).generalInfoDate, generalInfoData.get(i).generalInfoContent));
                 }
             }
             Collections.sort(infoArticlesToDisplay, new SortByDate());
             reOrder(infoArticlesToDisplay);
-            mGeneralInfoActivityAdapter = new GeneralInfoActivityAdapter(orderedData, this);
+            mGeneralInfoActivityAdapter = new GeneralInfoActivityAdapter(infoArticlesToDisplay, this);
         }
         generalInfoRecyclerView.setAdapter(mGeneralInfoActivityAdapter);
 
@@ -182,7 +197,7 @@ public class GeneralInfoActivity extends AppCompatActivity implements ArticleCli
     }
 
     private ArrayList<GeneralInfoArticle> reOrder(ArrayList<GeneralInfoArticle> data){
-       orderedData.clear();
+       //orderedData.clear();
         this.orderedData = data;
         Collections.reverse(data);
         return data;
@@ -190,44 +205,47 @@ public class GeneralInfoActivity extends AppCompatActivity implements ArticleCli
 
     //
 
-    //reads the general_info CSV file from the /raw folder.
-    private void readData() {
-        //access the resources directory
-        InputStream inputStream = getResources().openRawResource(R.raw.general_info);
-        BufferedReader reader = new BufferedReader(
-                new InputStreamReader(inputStream, Charset.forName("UTF-8"))
-        );
 
-        String line = "";
-        //if the line is not null keep looping
-        try {
-            //skip the header
-            reader.readLine();
+    public void readData(){
+        generalInfoData.clear();
 
-            while( (line = reader.readLine()) != null){
-                //split by ','s
-                String[] tokens = line.split(",");
-
-                //read the data
-                String type = tokens[0];
-                String title = tokens[1];
-                String date = tokens[2];
-                String contentUnformatted = tokens[3];
-                String contentFormatted = contentUnformatted.replace("-",", ");
-
-                GeneralInfoArticle generalInfoArticle = new GeneralInfoArticle(type, title, date, contentFormatted);
-                //which arraylist do you want to add it to?
-
-                generalInfoData.add(generalInfoArticle);
-
-                //debug statement
-                Log.d("MainActivity", "Just created " + generalInfoArticle.toString());
+        client = new AsyncHttpClient();
+        client.get(excelUrl, new FileAsyncHttpResponseHandler(this) {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
+                Toast.makeText(GeneralInfoActivity.this, "Download Failed", Toast.LENGTH_SHORT).show();
+                throwable.printStackTrace();
             }
-        }catch(IOException e){
-            Log.wtf("MainActivity", "Error reading data file " + line, e);
-            e.printStackTrace();
-        }
 
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, File file) {
+                Toast.makeText(GeneralInfoActivity.this, "File downloaded", Toast.LENGTH_SHORT).show();
+                WorkbookSettings ws = new WorkbookSettings();
+                ws.setGCDisabled(true);
+                if (file != null){
+                    try{
+                        workbook = workbook.getWorkbook(file);
+                        Sheet sheet = workbook.getSheet(0);
+                        for (int i = 1; i < sheet.getRows(); i++){
+                            Cell[] row = sheet.getRow(i);
+                            generalInfoData.add(new GeneralInfoArticle(row[0].getContents(), row[1].getContents(), row[2].getContents(), row[3].getContents()));
+                        }
+
+                        Log.d("TAG", "the first element in the generalInfoData arraylist is " + generalInfoData.get(0).getArticleType());
+
+                        Log.d("TAG", "The number of rows in the sheet is " + sheet.getRows());
+                    }catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (BiffException e) {
+                        e.printStackTrace();
+                    }
+
+                    getSelectedArticleType(GenInfoArticleType);
+                    Log.d("Tag", "GenInfoArticleType is " + GenInfoArticleType);
+                }
+
+            }
+        });
     }
 
     @Override
