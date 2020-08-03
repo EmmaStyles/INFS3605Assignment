@@ -78,6 +78,11 @@ public class GeneralInfoActivity extends AppCompatActivity implements ArticleCli
                         startActivity(intent3);
                         overridePendingTransition(0,0);
                         break;
+                    case R.id.saved:
+                        Intent intent4 = new Intent(GeneralInfoActivity.this, SavedActivity.class);
+                        startActivity(intent4);
+                        overridePendingTransition(0,0);
+                        break;
                 }
                 return false;
             }

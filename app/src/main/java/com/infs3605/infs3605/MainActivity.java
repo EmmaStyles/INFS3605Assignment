@@ -1,6 +1,8 @@
 package com.infs3605.infs3605;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -8,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,8 +18,19 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.FileAsyncHttpResponseHandler;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import cz.msebera.android.httpclient.Header;
+import jxl.Cell;
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.WorkbookSettings;
+import jxl.read.biff.BiffException;
 
 //hello im commenting in the main activity
 public class MainActivity extends AppCompatActivity implements IndustryClickInterface {
@@ -24,7 +38,8 @@ public class MainActivity extends AppCompatActivity implements IndustryClickInte
     private MainActivityAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     ArrayList<IndustryClass> myDataset = new ArrayList<IndustryClass>();
-    Article article;
+
+    ArrayList<Article> downloadedData = new ArrayList<Article>();
 
 
     @Override
@@ -60,6 +75,11 @@ public class MainActivity extends AppCompatActivity implements IndustryClickInte
                     case R.id.schemes:
                         Intent intent3 = new Intent(MainActivity.this, SchemesActivity.class);
                         startActivity(intent3);
+                        overridePendingTransition(0,0);
+                        break;
+                    case R.id.saved:
+                        Intent intent5 = new Intent(MainActivity.this, SavedActivity.class);
+                        startActivity(intent5);
                         overridePendingTransition(0,0);
                         break;
                 }
@@ -121,6 +141,13 @@ public class MainActivity extends AppCompatActivity implements IndustryClickInte
 
         recyclerView.setAdapter(mAdapter);
 
+
+
+        Log.d("main activity", "data should still have " + downloadedData.size());
+
+
+
+
     }
 
     @Override
@@ -155,10 +182,16 @@ public class MainActivity extends AppCompatActivity implements IndustryClickInte
     public void onIndustryClick(int position) {
         Intent intent = new Intent(this, IndustryActivity.class);
         intent.putExtra("Industry Object", myDataset.get(position));
+        intent.putParcelableArrayListExtra("Data", downloadedData);
+
 
         startActivity(intent);
 
     }
+
+
+
+
 
 
 }

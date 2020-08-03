@@ -63,6 +63,12 @@ public class SchemesActivity extends AppCompatActivity implements ArticleClickIn
                         break;
                     case R.id.schemes:
                         break;
+                    case R.id.saved:
+                        Intent intent4 = new Intent(SchemesActivity.this, SavedActivity.class);
+                        startActivity(intent4);
+                        overridePendingTransition(0,0);
+                        break;
+
                 }
                 return false;
             }

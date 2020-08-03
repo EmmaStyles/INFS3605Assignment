@@ -48,18 +48,17 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
     private IndustryActivityAdapter mIndustryActAdapter;
     private RecyclerView.LayoutManager layoutManager;
     AsyncHttpClient client;
-    String excelUrl = "https://raw.githubusercontent.com/EmmaStyles/INFS3605Assignment/master/industryData.xls";
+//    String excelUrl = "https://raw.githubusercontent.com/EmmaStyles/INFS3605Assignment/master/industryData.xls";
+    String excelUrl = "https://raw.githubusercontent.com/audreypatricia/excelTesting/master/industryData.xls";
     Workbook workbook;
     ArrayList<Article> data = new ArrayList<Article>();
 
-    //    ArrayList<String> industries, segments, titles, dates, contents, images;
-//    ArrayList<ArrayList<String>> list = new ArrayList<>();
+
+
     TextView industryHeader;
     ProgressBar progressBar;
     IndustryClass industryClass;
-    IndustryClass industryClass2;
-    ArrayList<String> industrySegments;
-    IndustryClass industryClassFinal;
+
 
 
     @Override
@@ -105,6 +104,11 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
                         startActivity(intent3);
                         overridePendingTransition(0, 0);
                         break;
+                    case R.id.saved:
+                        Intent intent5 = new Intent(IndustryActivity.this, SavedActivity.class);
+                        startActivity(intent5);
+                        overridePendingTransition(0, 0);
+                        break;
                 }
                 return false;
             }
@@ -120,6 +124,8 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
 
         Intent intent = getIntent();
         industryClass = intent.getParcelableExtra("Industry Object");
+        data = intent.getParcelableArrayListExtra("Data");
+
 
         industryHeader = findViewById(R.id.indsutry_chosen_TV);
         industryHeader.setText(industryClass.getIndustryName());
@@ -143,7 +149,9 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
 
         recyclerView.setLayoutManager(layoutManager);
 
+
         readData();
+//        getArticles();
 
     }
 
@@ -153,13 +161,13 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
         data.clear();
 
 
-        data.add(new Article("Travel", "Hotels", "Accommodation, Holiday HomeS & Holiday Rentals", "23/06/2020", "Accommodation services may be offered without restriction, except holiday rentals which are subject to restrictions.\n"));
-        data.add(new Article("Property", "Real Estate", "Auction houses (other than Clearing houses)", "23/06/2020", "Accommodation services may be offered without restriction, except holiday rentals which are subject to restrictions.\n"));
-        data.add(new Article("Hospitality", "Bars", "Bars, pubs, clubs, cellar doors, micro-breweries, distilleries and casinos", "23/06/2020", "Capacity must not exceed 50 customers or one customer per 4 square metres (excluding staff) per existing separate seated food or drink area.\n"));
-        data.add(new Article("Beauty", "Nail Salons", "Beauty, nail, tanning and waxing salons, tattoo and massage parlours and spas", "23/06/2020", "Capacity must not exceed 20 customers or one customer per 4 square metres.\n"));
-        data.add(new Article("Hospitality", "Restaurants and Cafes", "Cafes and restaurants", "23/06/2020", "Capacity must not exceed 50 customers or one customer per 4 square metres.\n"));
-        data.add(new Article("Hospitality", "Restaurants and Cafes", "Food Courts", "23/06/2020", "Operators must have a COVID safety plan\n"));
-        data.add(new Article("Beauty", "Hairdressers", "Hairdresses and barbers", "23/06/2020", "Hairdressing salons and barbers may open with restrictions.\n"));
+        data.add(new Article("0","Travel", "Hotels", "Accommodation, Holiday HomeS & Holiday Rentals", "23/06/2020", "Accommodation services may be offered without restriction, except holiday rentals which are subject to restrictions.\n","0"));
+        data.add(new Article("1","Property", "Real Estate", "Auction houses (other than Clearing houses)", "23/06/2020", "Accommodation services may be offered without restriction, except holiday rentals which are subject to restrictions.\n","0"));
+        data.add(new Article("2","Hospitality", "Bars", "Bars, pubs, clubs, cellar doors, micro-breweries, distilleries and casinos", "23/06/2020", "Capacity must not exceed 50 customers or one customer per 4 square metres (excluding staff) per existing separate seated food or drink area.\n","0"));
+        data.add(new Article("3","Beauty", "Nail Salons", "Beauty, nail, tanning and waxing salons, tattoo and massage parlours and spas", "23/06/2020", "Capacity must not exceed 20 customers or one customer per 4 square metres.\n","0"));
+        data.add(new Article("4","Hospitality", "Restaurants and Cafes", "Cafes and restaurants", "23/06/2020", "Capacity must not exceed 50 customers or one customer per 4 square metres.\n","0"));
+        data.add(new Article("5","Hospitality", "Restaurants and Cafes", "Food Courts", "23/06/2020", "Operators must have a COVID safety plan\n", "0"));
+        data.add(new Article("6","Beauty", "Hairdressers", "Hairdresses and barbers", "23/06/2020", "Hairdressing salons and barbers may open with restrictions.\n","0"));
         Log.d("TAG", "OnSuccess1: " + data.get(0));
 
 
@@ -169,35 +177,45 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
 
     ArrayList<Article> articlesToDisplay = new ArrayList<Article>();
 
+
     private void getSelectedSegment(String segment) {
 //        data.clear();
 //try read data now
+
 
         String industryChosen = industryClass.getIndustryName();
         // changed this to find industry
         Log.d("IndustryActivity", "industryChosen " + industryChosen);
         if (segment.equalsIgnoreCase("All")) {
-
+// all dataList was changed from data (1/08)
+            articlesToDisplay.clear();
             for (int i = 0; i < data.size(); i++) {
                 if (data.get(i).getIndustry().equalsIgnoreCase(industryChosen)) {
-                    articlesToDisplay.add(new Article(data.get(i).getIndustry(), data.get(i).getSegment(), data.get(i).getTitle(), data.get(i).getDate(), data.get(i).getContent()));
+                    articlesToDisplay.add(new Article(data.get(i).getKeyId(), data.get(i).getIndustry(), data.get(i).getSegment(),
+                            data.get(i).getTitle(), data.get(i).getDate(), data.get(i).getContent(), data.get(i).getFavStatus()));
+
                 } else {
 
                 }
 
             }
+
             Log.d("TAG", "OnSuccess3: " + articlesToDisplay.size());
             mIndustryActAdapter = new IndustryActivityAdapter(articlesToDisplay, this, this);
 
 
         } else {
+
             articlesToDisplay.clear();
             for (int i = 0; i < data.size(); i++) {
 //            for(Article article : getArticles()){
                 if (data.get(i).getSegment().equalsIgnoreCase(segmentChosen)) {
-                    articlesToDisplay.add(new Article(data.get(i).getIndustry(), data.get(i).getSegment(), data.get(i).getTitle(), data.get(i).getDate(), data.get(i).getContent()));
+
+                    articlesToDisplay.add(new Article(data.get(i).getKeyId(),data.get(i).getIndustry(), data.get(i).getSegment(), data.get(i).getTitle(),
+                            data.get(i).getDate(), data.get(i).getContent(), data.get(i).getFavStatus()));
                 }
             }
+
             Log.d("TAG", "OnSuccess4: the size of the articlestodisplay list is " + articlesToDisplay.size());
 
             mIndustryActAdapter = new IndustryActivityAdapter(articlesToDisplay, this, this);
@@ -231,6 +249,7 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
     public void onArticleClick(int position) {
         Intent intent = new Intent(this, ArticleDetail.class);
         intent.putExtra("Article Object", articlesToDisplay.get(position));
+
 
         startActivity(intent);
     }
@@ -272,7 +291,8 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
 //
 //                            images.add(row[5].getContents());
 
-                            data.add(new Article(row[0].getContents(), row[1].getContents(), row[2].getContents(), row[3].getContents(), row[4].getContents()));
+                            data.add(new Article(row[0].getContents(), row[1].getContents(), row[2].getContents(),
+                                    row[3].getContents(), row[4].getContents(), row[5].getContents(), "0"));
 
                             Log.d("IndustryActivity", "Just created " + data.get(i).getIndustry());
                         }

@@ -68,6 +68,11 @@ public class LiveUpdatesActivity extends AppCompatActivity {
                         startActivity(intent3);
                         overridePendingTransition(0,0);
                         break;
+                    case R.id.saved:
+                        Intent intent4 = new Intent(LiveUpdatesActivity.this, SavedActivity.class);
+                        startActivity(intent4);
+                        overridePendingTransition(0,0);
+                        break;
                 }
                 return false;
             }

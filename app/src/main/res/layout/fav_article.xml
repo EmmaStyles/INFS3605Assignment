@@ -32,29 +32,19 @@
                 app:layout_constraintEnd_toEndOf="parent"/>
 
             <Button
-                android:id="@+id/fav_button"
+                android:id="@+id/saved_button"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@drawable/ic_bookmark"
-                android:backgroundTint="@color/darkBlue"
-                app:layout_constraintTop_toBottomOf="@id/article_title"
+                android:background="@drawable/ic_bookmark_filled"
+                app:layout_constraintTop_toBottomOf="@id/saved_article_title"
                 app:layout_constraintEnd_toEndOf="@id/restriction_design"
                 android:layout_marginRight="10dp"/>
 
-<!--            <ImageView-->
-<!--                android:id="@+id/article_image"-->
-<!--                android:layout_width="100dp"-->
-<!--                android:layout_height="100dp"-->
-<!--                android:paddingLeft="20dp"-->
-<!--                android:paddingTop="20dp"-->
-<!--                android:src="@drawable/health_industry"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent" />-->
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/article_title"
+                android:id="@+id/saved_article_title"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:paddingLeft="20dp"
@@ -66,8 +56,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/article_date"
-                app:layout_constraintTop_toBottomOf="@+id/article_title"
+                android:id="@+id/saved_article_date"
+                app:layout_constraintTop_toBottomOf="@+id/saved_article_title"
                 app:layout_constraintStart_toStartOf="parent"
                 android:paddingLeft="20dp"
                 android:paddingTop="2dp"
