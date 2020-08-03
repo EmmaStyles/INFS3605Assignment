@@ -1,6 +1,8 @@
 package com.infs3605.infs3605;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +42,7 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
 
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.main_activity_recycler_view, parent,false);
         ViewHolder vh = new ViewHolder(v);
+
         return vh;
     }
 
@@ -124,6 +127,7 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
 //
 //        void onIndustryClick(int position);
 //    }
+
 
 
 }

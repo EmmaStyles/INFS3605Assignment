@@ -18,8 +18,13 @@
         android:icon="@drawable/ic_notifications"></item>
 
     <item
-        android:id="@+id/schemes"
-        android:title="Schemes"
-        android:icon="@drawable/ic_monetization"></item>
+    android:id="@+id/schemes"
+    android:title="Schemes"
+    android:icon="@drawable/ic_monetization"></item>
+
+    <item
+        android:id="@+id/saved"
+        android:title="Saved"
+        android:icon="@drawable/ic_bookmarks_nav"></item>
 
 </menu>
