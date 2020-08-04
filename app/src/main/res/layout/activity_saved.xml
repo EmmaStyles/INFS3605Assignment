@@ -10,20 +10,45 @@
 
 
 
+
+    <ImageView
+        android:id="@+id/header"
+        android:layout_width="500dp"
+        android:layout_height="127dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.64"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/saved_header"
+        android:layout_marginLeft="10dp"/>
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/saved_rv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationPane"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.849"
-        android:layout_marginStart="25dp"
-        android:layout_marginLeft="25dp" />
+        app:layout_constraintVertical_bias="1.0"/>
+
+    <TextView
+        android:id="@+id/saved_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
+
+        android:text="Saved Articles"
+        android:textColor="@color/darkBlue"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/header"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationPane"

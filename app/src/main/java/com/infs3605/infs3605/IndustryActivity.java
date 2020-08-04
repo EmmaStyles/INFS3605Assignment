@@ -48,8 +48,8 @@ public class IndustryActivity extends AppCompatActivity implements AdapterView.O
     private IndustryActivityAdapter mIndustryActAdapter;
     private RecyclerView.LayoutManager layoutManager;
     AsyncHttpClient client;
-//    String excelUrl = "https://raw.githubusercontent.com/EmmaStyles/INFS3605Assignment/master/industryData.xls";
-    String excelUrl = "https://raw.githubusercontent.com/audreypatricia/excelTesting/master/industryData.xls";
+
+    String excelUrl = "https://raw.githubusercontent.com/EmmaStyles/INFS3605Assignment/master/industryData2.xls";
     Workbook workbook;
     ArrayList<Article> data = new ArrayList<Article>();
 
