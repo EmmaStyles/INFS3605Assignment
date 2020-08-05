@@ -93,4 +93,5 @@ public class FavDB extends SQLiteOpenHelper {
         return db.rawQuery(sql,null);
 
     }
+
 }

@@ -48,7 +48,7 @@ public class GeneralInfoActivity extends AppCompatActivity implements ArticleCli
     private GeneralInfoActivityAdapter mGeneralInfoActivityAdapter;
     private RecyclerView.LayoutManager layoutManager;
     AsyncHttpClient client;
-    String excelUrl = "https://raw.githubusercontent.com/EmmaStyles/INFS3605Assignment/master/generalInfo_data.xls";
+    String excelUrl = "https://raw.githubusercontent.com/EmmaStyles/INFS3605Assignment/master/generalInfo_data2.xls";
     Workbook workbook;
 
     ArrayList<GeneralInfoArticle> generalInfoData = new ArrayList<GeneralInfoArticle>();
@@ -152,6 +152,7 @@ public class GeneralInfoActivity extends AppCompatActivity implements ArticleCli
 
     @Override
     public void onArticleClick(int position) {
+        Log.d("TAG", "itemClicked " + orderedData.get(position).getGeneralInfoTitle());
         Intent intent = new Intent(this,GeneralInfoDetailActivity.class);
         intent.putExtra("GIobject",orderedData.get(position));
 
@@ -169,31 +170,32 @@ public class GeneralInfoActivity extends AppCompatActivity implements ArticleCli
             Collections.sort(generalInfoData, new SortByDate());
             reOrder(generalInfoData);
 
-            mGeneralInfoActivityAdapter = new GeneralInfoActivityAdapter(generalInfoData, this);
+            mGeneralInfoActivityAdapter = new GeneralInfoActivityAdapter(generalInfoData, this, this);
 
         } else {
             infoArticlesToDisplay.clear();
 //
             for(int i = 0; i<generalInfoData.size(); i++){
                 if(generalInfoData.get(i).getArticleType().equalsIgnoreCase(articleTypeChosen)){
-                    infoArticlesToDisplay.add(new GeneralInfoArticle(generalInfoData.get(i).getArticleType(), generalInfoData.get(i).generalInfoTitle, generalInfoData.get(i).generalInfoDate, generalInfoData.get(i).generalInfoContent));
+                    infoArticlesToDisplay.add(new GeneralInfoArticle(generalInfoData.get(i).getArticleID(), generalInfoData.get(i).getArticleType(),
+                            generalInfoData.get(i).generalInfoTitle, generalInfoData.get(i).generalInfoDate, generalInfoData.get(i).generalInfoContent, generalInfoData.get(i).getInfoStatus()));
                 }
             }
             Collections.sort(infoArticlesToDisplay, new SortByDate());
             reOrder(infoArticlesToDisplay);
-            mGeneralInfoActivityAdapter = new GeneralInfoActivityAdapter(infoArticlesToDisplay, this);
+            mGeneralInfoActivityAdapter = new GeneralInfoActivityAdapter(infoArticlesToDisplay, this, this);
         }
         generalInfoRecyclerView.setAdapter(mGeneralInfoActivityAdapter);
 
     }
 
-    String GenInfoArticleType;
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-        GenInfoArticleType = adapterView.getItemAtPosition(position).toString();
-        Toast.makeText(adapterView.getContext(), GenInfoArticleType, Toast.LENGTH_SHORT ).show();
+        String GenInfoArticleType;
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+            GenInfoArticleType = adapterView.getItemAtPosition(position).toString();
+            Toast.makeText(adapterView.getContext(), GenInfoArticleType, Toast.LENGTH_SHORT ).show();
 
-        getSelectedArticleType(GenInfoArticleType);
+            getSelectedArticleType(GenInfoArticleType);
     }
 
     @Override
@@ -233,7 +235,7 @@ public class GeneralInfoActivity extends AppCompatActivity implements ArticleCli
                         Sheet sheet = workbook.getSheet(0);
                         for (int i = 1; i < sheet.getRows(); i++){
                             Cell[] row = sheet.getRow(i);
-                            generalInfoData.add(new GeneralInfoArticle(row[0].getContents(), row[1].getContents(), row[2].getContents(), row[3].getContents()));
+                            generalInfoData.add(new GeneralInfoArticle(row[0].getContents(), row[1].getContents(), row[2].getContents(), row[3].getContents(), row[4].getContents(), "0"));
                         }
 
                         Log.d("TAG", "the first element in the generalInfoData arraylist is " + generalInfoData.get(0).getArticleType());

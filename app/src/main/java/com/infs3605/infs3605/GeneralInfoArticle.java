@@ -4,23 +4,29 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class GeneralInfoArticle implements Parcelable {
+    String articleID;
     String articleType;
     String generalInfoTitle;
     String generalInfoDate;
     String generalInfoContent;
+    String infoStatus;
 
-    public GeneralInfoArticle(String articleType, String generalInfoTitle, String generalInfoDate, String generalInfoContent){
+    public GeneralInfoArticle(String articleID, String articleType, String generalInfoTitle, String generalInfoDate, String generalInfoContent, String infoStatus){
+        this.articleID = articleID;
         this.generalInfoTitle = generalInfoTitle;
         this.generalInfoDate = generalInfoDate;
         this.generalInfoContent = generalInfoContent;
         this.articleType = articleType;
+        this.infoStatus = infoStatus;
     }
 
     protected GeneralInfoArticle(Parcel in) {
+        articleID = in.readString();
         articleType = in.readString();
         generalInfoTitle = in.readString();
         generalInfoDate = in.readString();
         generalInfoContent = in.readString();
+        infoStatus = in.readString();
     }
 
     public static final Creator<GeneralInfoArticle> CREATOR = new Creator<GeneralInfoArticle>() {
@@ -67,6 +73,22 @@ public class GeneralInfoArticle implements Parcelable {
         this.generalInfoContent = generalInfoContent;
     }
 
+    public String getArticleID() {
+        return articleID;
+    }
+
+    public void setArticleID(String articleID) {
+        this.articleID = articleID;
+    }
+
+    public String getInfoStatus() {
+        return infoStatus;
+    }
+
+    public void setInfoStatus(String infoStatus) {
+        this.infoStatus = infoStatus;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -74,10 +96,12 @@ public class GeneralInfoArticle implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(articleID);
         parcel.writeString(articleType);
         parcel.writeString(generalInfoTitle);
         parcel.writeString(generalInfoDate);
         parcel.writeString(generalInfoContent);
+        parcel.writeString(infoStatus);
     }
 
 

@@ -12,12 +12,15 @@ import com.squareup.picasso.Picasso;
 
 import org.apache.log4j.chainsaw.Main;
 
+import java.util.ArrayList;
+
 public class ArticleDetail extends AppCompatActivity {
     TextView articleTitle;
     TextView articleDate;
     TextView articleContent;
     Article article;
     ImageView articleImage;
+    ArrayList<String> articleSent;
 
 
     @Override
@@ -34,11 +37,19 @@ public class ArticleDetail extends AppCompatActivity {
 
         Intent intent = getIntent();
         article = intent.getParcelableExtra("Article Object");
+        articleSent = intent.getStringArrayListExtra("article");
 
-        articleTitle.setText(article.getTitle());
-        articleDate.setText(article.getDate());
-        articleContent.setText(article.getContent());
+        if(article != null) {
+            articleTitle.setText(article.getTitle());
+            articleDate.setText(article.getDate());
+            articleContent.setText(article.getContent());
 //        Picasso.with(this).load(article.getArticleImageUrl()).into(articleImage);
+        } else{
+
+            articleTitle.setText(articleSent.get(0));
+            articleDate.setText(articleSent.get(1));
+            articleContent.setText(articleSent.get(2));
+        }
 
 //
     }

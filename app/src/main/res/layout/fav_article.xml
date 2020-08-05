@@ -20,11 +20,11 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="center"
-            android:background="@drawable/article_border_restrictions"
+            android:background="@drawable/article_border_saved"
             android:elevation="10dp">
 
             <ImageView
-                android:id="@+id/restriction_design"
+                android:id="@+id/background"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/restriction_rv_pattern"
@@ -37,7 +37,7 @@
                 android:layout_height="30dp"
                 android:background="@drawable/ic_bookmark_filled"
                 app:layout_constraintTop_toBottomOf="@id/saved_article_title"
-                app:layout_constraintEnd_toEndOf="@id/restriction_design"
+                app:layout_constraintEnd_toEndOf="@id/background"
                 android:layout_marginRight="10dp"/>
 
 
