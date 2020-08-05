@@ -50,6 +50,7 @@ public class SavedActivity extends AppCompatActivity implements AdapterView.OnIt
         MenuItem menuItem = menu.getItem(4);
         menuItem.setChecked(true);
 
+        this.setTitle("CovidAware");
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
